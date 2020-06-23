@@ -1,0 +1,10 @@
+server:
+  port: 8101
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://118.89.222.159:7001/eureka/
+spring:
+  application:
+    name: testConsumer
+
