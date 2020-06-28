@@ -1,4 +1,3 @@
-
 <#-- 加载通用变量定义 -->
 <${'#include'?html} "/common/common_var_definds.ftl" />
 

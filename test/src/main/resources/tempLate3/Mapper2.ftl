@@ -2,15 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="${daoPackageName}.${tableName}Mapper">
     <resultMap id="BaseResultMap" type="${poPackageName}.${tableName}VO">
-        <id column="${columns[0].dbcolumnName}" jdbcType="${columns[0].dbcolumnType}" property="${columns[0].columnName}"/>
+        <id column="${columns[0].dbcolumnName}" jdbcType="${columns[0].dbcolumnType}"
+            property="${columns[0].columnName}"/>
     <#list columns as column>
         <result column="${column.dbcolumnName}" jdbcType="${column.dbcolumnType}" property="${column.columnName}"/>
-        </#list>
+    </#list>
     </resultMap>
     <sql id="Base_Column_List">
     <#list columns as column>
-  ${column.dbcolumnName},</#list>
-   </sql>
+        ${column.dbcolumnName},</#list>
+    </sql>
     <select id="selectByPrimaryKey"
             parameterType="java.lang.String"
             resultMap="BaseResultMap">
@@ -18,8 +19,8 @@
         <include refid="Base_Column_List"/>
         from ${dbtableName}
         <where>
-            <#list columns as column>
-                <if test="${column.columnName} != null">AND ${column.dbcolumnName} = ${'#{'?html}${column.columnName}}</if>
+<#list columns as column>
+    <if test="${column.columnName} != null">AND ${column.dbcolumnName} = ${'#{'?html}${column.columnName}}</if>
             </#list>
         </where>
     </select>

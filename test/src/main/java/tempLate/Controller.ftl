@@ -21,7 +21,7 @@ import ${controllerPackName?substring(0,controllerPackName?last_index_of('.'))}.
 @Controller("${webTableName}")
 @RequestMapping(value = "/${location}")
 public class ${webTableName}Controller extends BaseController {
-${webTableName}
+    ${webTableName}
 @Resource
 private ${webTableName}Model ${webTableName}Model;</#if>
 <#list methods as method>
@@ -34,7 +34,7 @@ private ${webTableName}Model ${webTableName}Model;</#if>
     @ResponseBody
     @RequestMapping(value = "/find${tableName}ListByPage.ajax", method = { RequestMethod.GET, RequestMethod.POST })
     public PaginationMapResponse find${tableName}ListByPage(HttpServletRequest httpServletRequest,
-    ${tableName}Form ${tableVar}Form) throws BusinessException {
+        ${tableName}Form ${tableVar}Form) throws BusinessException {
 
     PaginationRequest paginationRequest = PaginationUtils.createPaginationRequest(${tableVar}Form);
     PaginationMapResponse paginationMapResponse = ${webTableName}Model
@@ -47,7 +47,7 @@ private ${webTableName}Model ${webTableName}Model;</#if>
     @RequestMapping(value = "/find${tableName}bySum.ajax", method = { RequestMethod.GET, RequestMethod.POST })
     public Map
     <String, Object> find${tableName}bySum(HttpServletRequest httpServletRequest,
-    ${tableName}Form ${tableVar}Form) throws BusinessException {
+        ${tableName}Form ${tableVar}Form) throws BusinessException {
     PaginationRequest paginationRequest = PaginationUtils.createPaginationRequest(${tableVar}Form);
     return ${webTableName}Model.find${tableName}bySum(paginationRequest);
     }
@@ -57,7 +57,7 @@ private ${webTableName}Model ${webTableName}Model;</#if>
     @RequestMapping(value = "/insert${tableName}.ajax", method = { RequestMethod.GET, RequestMethod.POST })
     public ResultDto
     <Integer> insert${tableName}(HttpServletRequest httpServletRequest,
-    ${tableName}Form ${tableVar}Form) throws BusinessException {
+        ${tableName}Form ${tableVar}Form) throws BusinessException {
         return ${webTableName}Model.insert${tableName}(paramMap);
         }
     </#if>
@@ -66,7 +66,7 @@ private ${webTableName}Model ${webTableName}Model;</#if>
         @RequestMapping(value = "/update${tableName}.ajax", method = { RequestMethod.GET, RequestMethod.POST })
         public ResultDto
     <Integer> update${tableName}(HttpServletRequest httpServletRequest,
-    ${tableName}Form ${tableVar}Form) throws BusinessException {
+        ${tableName}Form ${tableVar}Form) throws BusinessException {
         return ${webTableName}Model.update${tableName}(paramMap);
         }
     </#if>

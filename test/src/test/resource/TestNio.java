@@ -1,10 +1,11 @@
 package resource;
 
+import org.junit.Test;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.net.URLDecoder;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.sql.Connection;
@@ -15,13 +16,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.Test;
 
 public class TestNio {
     static String projectName = "C:\\Users\\Administrator\\IdeaProjects\\app\\test\\src\\main\\resources\\generator";
     static String sqlFile = "C:\\Users\\Administrator\\IdeaProjects\\app\\test\\src\\main\\resources\\generator\\media.sql";
     static String table = "media";
-    
+
     static String projectWebName = "";
     static String serverName = "orderCount";
     private static Map<String, Object> data = new SelfCurrentHashMap();
@@ -48,20 +48,21 @@ public class TestNio {
 //        System.out.print(URLDecoder.decode(Thread.currentThread().getContextClassLoader().
 //                getResource("/").getPath(), "UTF-8"));
 //        System.out.print(Thread.currentThread().getContextClassLoader().getResource("/").getPath());
-        System.out.print( TestNio.class.getResource("").getPath());
-        System.out.print(this .getClass().getClassLoader().getResource("").getPath());
+        System.out.print(TestNio.class.getResource("").getPath());
+        System.out.print(this.getClass().getClassLoader().getResource("").getPath());
     }
+
     @Test
     public void creatColumnCode() throws Exception {
         FreeMarkerUtil util = new FreeMarkerUtil();
         util.init();
         getColumn();
         List<String> list1 = (List<String>) data.get("columnNames");
-        Map<String,String> list2 = (Map<String, String>) data.get("conmments");
+        Map<String, String> list2 = (Map<String, String>) data.get("conmments");
         List<String> list3 = (List<String>) data.get("columnTypes");
         List<Map<String, String>> list4 = new ArrayList<Map<String, String>>();
 
-        if (list1.size() > 0 &&  list1.size() == list3.size()) {
+        if (list1.size() > 0 && list1.size() == list3.size()) {
             System.out.println(list1.size() + "-" + list2.size() + "-" + list3.size());
 
             for (int i = 0; i < list1.size(); i++) {
@@ -69,22 +70,23 @@ public class TestNio {
                 try {
                     columns.put("columnName", VarNameRule.columnToProperty(list1.get(i)));
                     columns.put("dbcolumnName", list1.get(i));
-                    columns.put("columnComment", list2.get(list1.get(i))==null?"":list2.get(list1.get(i)));
+                    columns.put("columnComment", list2.get(list1.get(i)) == null ? "" : list2.get(list1.get(i)));
                     columns.put("dbcolumnType", list3.get(i).toUpperCase());
-                    columns.put("columnType", VarNameRule.postgredbTypeToJavaType(list3.get(i))==null?"String":VarNameRule.postgredbTypeToJavaType(list3.get(i)));
+                    columns.put("columnType", VarNameRule.postgredbTypeToJavaType(list3.get(i)) == null ? "String" : VarNameRule.postgredbTypeToJavaType(list3.get(i)));
                 } catch (Exception e) {
                     e.printStackTrace();
-                    System.out.println (i+":"+e.getMessage()+e.getLocalizedMessage()+e.getCause());
+                    System.out.println(i + ":" + e.getMessage() + e.getLocalizedMessage() + e.getCause());
                 }
                 list4.add(columns);
             }
         }
-        data.put("daoPackageName","com.runlin.mapper");
-        data.put("poPackageName","com.runlin.entity.po");
+        data.put("daoPackageName", "com.runlin.mapper");
+        data.put("poPackageName", "com.runlin.entity.po");
         data.put("columns", list4);
         util.creatCode(util, data, data.get("tableName").toString());
         //util.process2(util, data, data.get("tableName").toString());
     }
+
     public static void main(String[] args) throws Exception {
 //        String s = "汉字-123-abc";
 //        printIT(s.getBytes());
@@ -116,7 +118,7 @@ public class TestNio {
             StringBuilder strBuf = new StringBuilder("");
             String tempString = null;
             List<String> columlist = new ArrayList<String>();
-            Map<String,String>  commentlist = new HashMap<>();
+            Map<String, String> commentlist = new HashMap<>();
             List<String> commentTypelist = new ArrayList<String>();
             while (fcin.read(rBuffer) != -1) {
                 int rSize = rBuffer.position();
@@ -171,6 +173,7 @@ public class TestNio {
             list.add(line);
         }
     }
+
     private static void getPostgreColumnsName(List<String> list, String line, StringBuffer str) {
         if (line.contains("private") && !line.contains("static")) {
             line = str.substring(line.lastIndexOf(" "), line.indexOf(";"));
@@ -191,22 +194,23 @@ public class TestNio {
             line = line.replaceAll("\r|\n", "");
             list.add(line);
         }
-        if (line.contains(" NULL ") ) {
+        if (line.contains(" NULL ")) {
             line = str.substring(line.indexOf("COMMENT") < 0 ? 0 : line.indexOf("COMMENT") + 9, line.indexOf("',") < 0 ? 0 : line.indexOf("',"));
             line = line.replaceAll("\r|\n", "");
             System.out.println(line.indexOf("COMMENT") < 0 ? "" : line);
             list.add(str.indexOf("COMMENT") < 0 ? "" : line);
         }
     }
-    private static void getPostgreCommentName(Map<String,String> list, String line, StringBuffer str) {
 
-        if (line.contains("COMMENT ON COLUMN") ) {
-            String line2=line;
-            line2 = str.substring(line2.lastIndexOf(".\"") < 0 ? 0 : line2.lastIndexOf(".\"")+2, line2.lastIndexOf("\"") < 0 ? 0 : line2.lastIndexOf("\""));
-            line = str.substring(line.indexOf("'") < 0 ? 0 : line.indexOf("'")+1, line.lastIndexOf("'") < 0 ? 0 : line.lastIndexOf("'"));
+    private static void getPostgreCommentName(Map<String, String> list, String line, StringBuffer str) {
+
+        if (line.contains("COMMENT ON COLUMN")) {
+            String line2 = line;
+            line2 = str.substring(line2.lastIndexOf(".\"") < 0 ? 0 : line2.lastIndexOf(".\"") + 2, line2.lastIndexOf("\"") < 0 ? 0 : line2.lastIndexOf("\""));
+            line = str.substring(line.indexOf("'") < 0 ? 0 : line.indexOf("'") + 1, line.lastIndexOf("'") < 0 ? 0 : line.lastIndexOf("'"));
             line = line.replaceAll("\r|\n", "");
             System.out.println(line.indexOf("'") < 0 ? "" : line);
-            list.put(line2,line);
+            list.put(line2, line);
         }
     }
 
@@ -222,7 +226,7 @@ public class TestNio {
             line = s.substring(0, s.indexOf("(") < 0 ? s.length() : s.indexOf("("));
             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + line);
             line = line.replaceAll("\r|\n", "");
-            list.add(line == null?"":line);
+            list.add(line == null ? "" : line);
         }
     }
 
@@ -238,9 +242,10 @@ public class TestNio {
             line = s.substring(0, s.indexOf("(") < 0 ? s.length() : s.indexOf("("));
             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + line);
             line = line.replaceAll("\r|\n|,", "");
-            list.add(line == null?"":line);
+            list.add(line == null ? "" : line);
         }
     }
+
     /**
      * 读文件写入数据库
      *
@@ -276,11 +281,11 @@ public class TestNio {
                     strBuf.delete(0, strBuf.length());
                     fromIndex = endIndex + 1;
                     pst.addBatch(line);
-            /*
-		     * System.out.println("-----------------------");
-		     * System.out.println(line);
-		     * System.out.println("-----------------------");
-		     */
+                    /*
+                     * System.out.println("-----------------------");
+                     * System.out.println(line);
+                     * System.out.println("-----------------------");
+                     */
                     if (i % 100 == 0) {
                         System.out.println("执行了：" + i);
                         if (i == 2700) {
@@ -388,7 +393,6 @@ public class TestNio {
 //	util.process3(util, data, data.get("tableName").toString());
 //
 //    }
-
 
 
     private void getColumn() throws FileNotFoundException {

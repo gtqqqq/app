@@ -5,7 +5,6 @@ import freemarker.template.Template;
 
 import java.io.*;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -25,15 +24,13 @@ public class FreeMarkerUtil {
         System.out.println();
     }
 
-
     public void init() throws Exception {
         // 初始化FreeMarker配置
         // 创建一个Configuration实例
         cfg = new Configuration();
         // 设置FreeMarker的模版文件位置
-
         cfg.setDirectoryForTemplateLoading(new File(
-                CreatBean.class.getResource("").getPath()+"tempLate"));
+                CreatBean.class.getResource("").getPath() + "tempLate"));
         cfg.setEncoding(Locale.CHINA, "utf-8");
 
     }
@@ -41,16 +38,18 @@ public class FreeMarkerUtil {
     @SuppressWarnings("unchecked")
     public void creatCode(FreeMarkerUtil hf, Map root,
                           String table) throws Exception {
-        root.put("tableVar",table.substring(0,1).toLowerCase()+table.substring(1));
+        root.put("tableVar", table.substring(0, 1).toLowerCase() + table.substring(1));
         root.put("date", new Date().toString());
         String projectPath = root.get("projectPath").toString();
-        String fileName = root.get("outFileName").toString();;
+        String fileName = root.get("outFileName").toString();
+        ;
         String savePath = "/";
         Template template = cfg.getTemplate(root.get("template").toString(), Locale.CHINA);
         root.put("tableName", table);
         hf.buildTemplate(root, projectPath, savePath, fileName, template);
 
     }
+
     /**
      * 首字母大写
      *
@@ -73,6 +72,7 @@ public class FreeMarkerUtil {
         if (97 <= chars && chars <= 122) {
             chars ^= 32;
         }
+
         return chars;
     }
 
@@ -90,7 +90,7 @@ public class FreeMarkerUtil {
         }
         file.delete();
         if (!file.exists()) {
-        	 root.put("fileExist", false);
+            root.put("fileExist", false);
             try {
                 // SYSTEM_ENCODING = "UTF-8";
                 Writer out = new OutputStreamWriter(new FileOutputStream(
@@ -189,6 +189,7 @@ public class FreeMarkerUtil {
             }
         }
     }
+
     //替换文件中TODO部分
     public void buildTemplateTODO(Map root, String projectPath, String savePath, String fileName, Template template)
             throws IOException {

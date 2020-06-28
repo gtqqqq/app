@@ -10,7 +10,7 @@ import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 
-@SpringBootApplication(exclude = { SecurityAutoConfiguration.class} )
+@SpringBootApplication
 @EnableDiscoveryClient
 @MapperScan("com.test.code.test.mapper")
 

@@ -69,10 +69,12 @@ public interface ${tableName}Mapper {
     * 方法描述 ：${tabledesc}列表查询
     *
     * @param : [${tableName}Cond]
-    * @return : List<${tableName}Bean>
+    * @return : List
+<${tableName}Bean>
     * @throws :
     * @auther : guantianqi
     * @createDate : 2018/11/16
     */
-    List<${tableName}Bean> selectBizCargoEnquiryDetailByList(${tableName}Cond confVo);
-}
+    List
+    <${tableName}Bean> selectBizCargoEnquiryDetailByList(${tableName}Cond confVo);
+        }

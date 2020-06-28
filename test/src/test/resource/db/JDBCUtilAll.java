@@ -1,30 +1,22 @@
 package resource.db;
 
-import org.apache.commons.beanutils.BeanMap;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.util.*;
+import java.sql.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 对jdbc的完整封装
- *
  */
 public class JDBCUtilAll {
 
-    public static  String driver = null;
-    private static  String url = null;
-    private static  String username = null;
-    private static  String password = null;
+    public static String driver = null;
+    private static String url = null;
+    private static String username = null;
+    private static String password = null;
 
     private CallableStatement callableStatement = null;//创建CallableStatement对象
     private Connection conn = null;
@@ -32,25 +24,26 @@ public class JDBCUtilAll {
     private ResultSet rst = null;
 
     public static String driverName() {
-    //创建Properties对象
-       Properties p = new Properties();
-                //获取文件输入流
+        //创建Properties对象
+        Properties p = new Properties();
+        //获取文件输入流
         InputStream in = null;
-       try {
-        in = new FileInputStream(JDBCUtilAll.class.getResource("").getPath()+"db.properties");
-        //加载输入流
-        p.load(in);
+        try {
+            in = new FileInputStream(JDBCUtilAll.class.getResource("").getPath() + "db.properties");
+            //加载输入流
+            p.load(in);
         } catch (FileNotFoundException e) {
-        e.printStackTrace();
+            e.printStackTrace();
         } catch (IOException e) {
-        e.printStackTrace();
+            e.printStackTrace();
         }
 
-       return p.getProperty("driverClassName",null);
+        return p.getProperty("driverClassName", null);
     }
 
     /**
-     * 建立数据库连接  
+     * 建立数据库连接
+     *
      * @return 数据库连接
      */
     public Connection getConnection() {
@@ -61,7 +54,7 @@ public class JDBCUtilAll {
                 //获取文件输入流
                 InputStream in = null;
                 try {
-                    in = new FileInputStream(JDBCUtilAll.class.getResource("").getPath()+"db.properties");
+                    in = new FileInputStream(JDBCUtilAll.class.getResource("").getPath() + "db.properties");
                     //加载输入流
                     p.load(in);
                 } catch (FileNotFoundException e) {
@@ -70,15 +63,15 @@ public class JDBCUtilAll {
                     e.printStackTrace();
                 }
                 //获取数据库连接驱动名字
-                driver = p.getProperty("driverClassName",null);
+                driver = p.getProperty("driverClassName", null);
                 //获取数据库连接地址
-                url = p.getProperty("url",null);
+                url = p.getProperty("url", null);
                 //获取数据库连接用户名
-                username = p.getProperty("username",null);
+                username = p.getProperty("username", null);
                 //获取数据库连接密码
-                password = p.getProperty("password",null);
-                if(driver != null && url != null
-                        && username != null && password != null){
+                password = p.getProperty("password", null);
+                if (driver != null && url != null
+                        && username != null && password != null) {
                     //加载驱动
                     Class.forName(driver);
                 }
@@ -96,9 +89,10 @@ public class JDBCUtilAll {
     }
 
     /**
-     * insert update delete SQL语句的执行的统一方法  
-     * @param sql SQL语句  
-     * @param params 参数数组，若没有参数则为null  
+     * insert update delete SQL语句的执行的统一方法
+     *
+     * @param sql    SQL语句
+     * @param params 参数数组，若没有参数则为null
      * @return 受影响的行数
      */
     public int executeUpdate(String sql, Object[] params) {
@@ -133,9 +127,10 @@ public class JDBCUtilAll {
     }
 
     /**
-     * SQL 查询将查询结果直接放入ResultSet中  
-     * @param sql SQL语句  
-     * @param params 参数数组，若没有参数则为null  
+     * SQL 查询将查询结果直接放入ResultSet中
+     *
+     * @param sql    SQL语句
+     * @param params 参数数组，若没有参数则为null
      * @return 结果集
      */
     private ResultSet executeQueryRS(String sql, Object[] params) {
@@ -164,9 +159,10 @@ public class JDBCUtilAll {
     }
 
     /**
-     * SQL 查询将查询结果：一行一列  
-     * @param sql SQL语句  
-     * @param params 参数数组，若没有参数则为null  
+     * SQL 查询将查询结果：一行一列
+     *
+     * @param sql    SQL语句
+     * @param params 参数数组，若没有参数则为null
      * @return 结果集
      */
     public Object executeQuerySingle(String sql, Object[] params) {
@@ -188,7 +184,7 @@ public class JDBCUtilAll {
             // 执行    
             rst = pst.executeQuery();
 
-            if(rst.next()) {
+            if (rst.next()) {
                 object = rst.getObject(1);
             }
 
@@ -202,12 +198,12 @@ public class JDBCUtilAll {
     }
 
     /**
-     * 获取结果集，并将结果放在List中  
+     * 获取结果集，并将结果放在List中
      *
-     * @param sql  SQL语句
-     *         params  参数，没有则为null
+     * @param sql SQL语句
+     *            params  参数，没有则为null
      * @return List
-     *                       结果集  
+     * 结果集
      */
     public List<Map<String, Object>> excuteQuery(String sql, Object[] params) {
         // 执行SQL获得结果集    
@@ -250,14 +246,15 @@ public class JDBCUtilAll {
     }
 
     /**
-     * 存储过程带有一个输出参数的方法  
-     * @param sql 存储过程语句  
-     * @param params 参数数组  
-     * @param outParamPos 输出参数位置  
-     * @param SqlType 输出参数类型  
+     * 存储过程带有一个输出参数的方法
+     *
+     * @param sql         存储过程语句
+     * @param params      参数数组
+     * @param outParamPos 输出参数位置
+     * @param SqlType     输出参数类型
      * @return 输出参数的值
      */
-    public Object excuteQuery(String sql, Object[] params,int outParamPos, int SqlType) {
+    public Object excuteQuery(String sql, Object[] params, int outParamPos, int SqlType) {
         Object object = null;
         conn = this.getConnection();
         try {
@@ -266,8 +263,8 @@ public class JDBCUtilAll {
             callableStatement = conn.prepareCall(sql);
 
             // 给参数赋值    
-            if(params != null) {
-                for(int i = 0; i < params.length; i++) {
+            if (params != null) {
+                for (int i = 0; i < params.length; i++) {
                     callableStatement.setObject(i + 1, params[i]);
                 }
             }
@@ -292,7 +289,7 @@ public class JDBCUtilAll {
     }
 
     /**
-     * 关闭所有资源  
+     * 关闭所有资源
      */
     private void closeAll() {
         // 关闭结果集对象    

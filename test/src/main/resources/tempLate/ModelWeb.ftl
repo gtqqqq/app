@@ -31,8 +31,10 @@ public class ${webTableName}Model {
 			return paginationMapResponse;
 	
 	}
-	public Map<String, Object> find${tableName}bySum(PaginationRequest paginationRequest){
-			Map<String, Object> dataMap = ${tableVar}Api.find${tableName}bySum(paginationRequest).getResult();
+	public Map
+<String, Object> find${tableName}bySum(PaginationRequest paginationRequest){
+			Map
+<String, Object> dataMap = ${tableVar}Api.find${tableName}bySum(paginationRequest).getResult();
 			return dataMap;
 	}
 	

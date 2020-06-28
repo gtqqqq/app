@@ -23,36 +23,50 @@ public class ${tableName}ApiImpl extends BaseApi implements ${tableName}Api {
 	private ${tableName}Model ${tableVar}Model;
 
 	@Override
-	public ResultDto<PaginationMapResponse> find${tableName}ListByPage(PaginationRequest paginationRequest) {
-		ResultDto<PaginationMapResponse> serviceResultDto = new PageResultDto<PaginationMapResponse>();
-		try {
-			PaginationMapResponse paginationMapResponse = ${tableVar}Model
-					.find${tableName}ListByPage(paginationRequest);
-			serviceResultDto.setSuccess(true);
-			serviceResultDto.setResult(paginationMapResponse);
-		} catch (Exception e) {
-			serviceResultDto.setSuccess(false);
-			serviceResultDto.setError(ErrorCodeConstant.ERROR_CODE_S046024,
-					"系统异常[" + ErrorCodeConstant.ERROR_CODE_S046024 + "]");
-			logger.exception("分页获取", "分页获取 errorCode:{0}, paginationRequest:{1}", e,
-					ErrorCodeConstant.ERROR_CODE_S046024, paginationRequest);
-		}
-		return serviceResultDto;
-	}
+	public ResultDto
+<PaginationMapResponse> find${tableName}ListByPage(PaginationRequest paginationRequest) {
+    ResultDto
+    <PaginationMapResponse> serviceResultDto = new PageResultDto
+        <PaginationMapResponse>();
+            try {
+            PaginationMapResponse paginationMapResponse = ${tableVar}Model
+            .find${tableName}ListByPage(paginationRequest);
+            serviceResultDto.setSuccess(true);
+            serviceResultDto.setResult(paginationMapResponse);
+            } catch (Exception e) {
+            serviceResultDto.setSuccess(false);
+            serviceResultDto.setError(ErrorCodeConstant.ERROR_CODE_S046024,
+            "系统异常[" + ErrorCodeConstant.ERROR_CODE_S046024 + "]");
+            logger.exception("分页获取", "分页获取 errorCode:{0}, paginationRequest:{1}", e,
+            ErrorCodeConstant.ERROR_CODE_S046024, paginationRequest);
+            }
+            return serviceResultDto;
+            }
 
-	@Override
-	public ResultDto<Map<String, Object>> find${tableName}bySum(PaginationRequest paginationRequest) {
-		ResultDto<Map<String, Object>> serviceResultDto = new ResultDto<Map<String, Object>>();
-		try {
-			Map<String, Object> resultMap = ${tableVar}Model.find${tableName}bySum(paginationRequest);
-			serviceResultDto.setSuccess(true);
-			serviceResultDto.setResult(resultMap);
-		} catch (Exception e) {
-			serviceResultDto.setSuccess(false);
-			serviceResultDto.setMessage("系统异常[" + ErrorCodeConstant.ERROR_CODE_S046026 + "]");
-			logger.exception("获取****统计信息", "获取****统计信息异常 errorCode:{0}, paginationRequest:{1}", e,
-					ErrorCodeConstant.ERROR_CODE_S046026, paginationRequest);
-		}
-		return serviceResultDto;
-	}
-}
+            @Override
+            public ResultDto
+            <Map
+            <String
+            , Object>> find${tableName}bySum(PaginationRequest paginationRequest) {
+            ResultDto
+            <Map
+            <String
+            , Object>> serviceResultDto = new ResultDto
+            <Map
+            <String
+            , Object>>();
+            try {
+            Map
+            <String
+            , Object> resultMap = ${tableVar}Model.find${tableName}bySum(paginationRequest);
+            serviceResultDto.setSuccess(true);
+            serviceResultDto.setResult(resultMap);
+            } catch (Exception e) {
+            serviceResultDto.setSuccess(false);
+            serviceResultDto.setMessage("系统异常[" + ErrorCodeConstant.ERROR_CODE_S046026 + "]");
+            logger.exception("获取****统计信息", "获取****统计信息异常 errorCode:{0}, paginationRequest:{1}", e,
+            ErrorCodeConstant.ERROR_CODE_S046026, paginationRequest);
+            }
+            return serviceResultDto;
+            }
+            }

@@ -28,20 +28,29 @@ public class ${webTableName}Model {
 	@Resource
 	private ${tableName}Api ${tableVar}Api;</#if>
 <#list methods as method>
-<#if method == "List_String-List_String">
-    public List<String> find${tableName}byIdList(List<String> IdList){
+    <#if method == "List_String-List_String">
+    public List
+    <String> find${tableName}byIdList(List
+    <String> IdList){
 		return  ${tableVar}Api.find${tableName}byIdList(IdList);
 	}
-</#if>	
-<#if method == "List_Map-Map">
-	public List<Map<String, Object>> find${tableName}List(Map<String, Object> paramMap) {
+    </#if>
+    <#if method == "List_Map-Map">
+	public List
+        <Map
+        <String, Object>> find${tableName}List(Map
+        <String, Object> paramMap) {
 		return ${tableVar}Api.find${tableName}List(paramMap);
 	}
-</#if>
+    </#if>
 
-<#if method == "insert-Map">	
-	public ResultDto<Integer> insert${tableName}(Map<String, Object> paramMap) {
-	    ResultDto<Integer> resultDto = new ResultDto<Integer>();
+    <#if method == "insert-Map">
+	public ResultDto
+    <Integer> insert${tableName}(Map
+        <String, Object> paramMap) {
+	    ResultDto
+    <Integer> resultDto = new ResultDto
+    <Integer>();
 	    try {
 		Integer result=   ${tableVar}Api.insert${tableName}(paramMap);
 		if(result > 0){
@@ -60,10 +69,14 @@ public class ${webTableName}Model {
 	    }
 		return resultDto;
 	}
-</#if>
-<#if method == "update-Map">	
-	public ResultDto<Integer> update${tableName}(Map<String, Object> paramMap) {
-	    ResultDto<Integer> resultDto = new ResultDto<Integer>();
+    </#if>
+    <#if method == "update-Map">
+	public ResultDto
+    <Integer> update${tableName}(Map
+        <String, Object> paramMap) {
+	    ResultDto
+    <Integer> resultDto = new ResultDto
+    <Integer>();
 	    try {
 		Integer result=   ${tableVar}Api.update${tableName}(paramMap);
 		if(result > 0){
@@ -82,30 +95,38 @@ public class ${webTableName}Model {
 	    }
 		return resultDto;
 	}
-</#if>
-<#if method == "Map-Map">	
-	public Map<String, Object> find${tableName}(Map<String, Object> paramMap){
+    </#if>
+    <#if method == "Map-Map">
+	public Map
+        <String, Object> find${tableName}(Map
+        <String, Object> paramMap){
 	    return ${tableVar}Api.find${tableName}(paramMap);
 	}
-</#if>
-<#if method == "HashMap-Page-PaginationRequest">
+    </#if>
+    <#if method == "HashMap-Page-PaginationRequest">
 	public PaginationMapResponse find${tableName}ListByPage(PaginationRequest paginationRequest)
 			throws BusinessException {
-	  	PaginationMapResponse paginationMapResponse = ${tableVar}Api.find${tableName}ListByPage(paginationRequest).getResult();
-	    List<HashMap<String, Object>> list = paginationMapResponse.getData();
-		for (HashMap<String, Object> map : list) {
-		   <#list columns as column>
+	  	PaginationMapResponse paginationMapResponse = ${tableVar}Api.find${tableName}
+        ListByPage(paginationRequest).getResult();
+	    List
+        <HashMap
+        <String, Object>> list = paginationMapResponse.getData();
+		for (HashMap
+        <String, Object> map : list) {
+        <#list columns as column>
 			map.put("${column}", map.get("${column}") != null ? map.get("${column}").toString() : null);
-           </#list>
+        </#list>
 	    }
 		return paginationMapResponse;
 	}
-</#if>
-<#if method == "Map-sum-PaginationRequest">
-    public Map<String, Object> find${tableName}bySum(PaginationRequest paginationRequest){
-		Map<String, Object> datamaplist = ${tableVar}Api.find${tableName}bySum(paginationRequest);
+    </#if>
+    <#if method == "Map-sum-PaginationRequest">
+    public Map
+        <String, Object> find${tableName}bySum(PaginationRequest paginationRequest){
+		Map
+        <String, Object> datamaplist = ${tableVar}Api.find${tableName}bySum(paginationRequest);
 		return datamaplist;
     }
-</#if>	
+    </#if>
 </#list>
 <#if fileExist == false>}</#if>

@@ -2,6 +2,7 @@ package com.test.code.controler;
 
 
 import com.test.code.dto.Dept;
+import com.test.code.dto.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;

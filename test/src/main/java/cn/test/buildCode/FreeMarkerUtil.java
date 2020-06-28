@@ -3,7 +3,7 @@ package cn.test.buildCode;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
-import java.io.*;
+import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -234,44 +234,43 @@ public class FreeMarkerUtil {
     public void process2(FreeMarkerUtil hf, Map root,
                          String table) throws Exception {
 
-     
 
         root.put("date", new Date());
 
         String projectPath = root.get("projectPath").toString();
 
-        String fileName =  table + "Mapper.java";
+        String fileName = table + "Mapper.java";
 
-        String savePath =  "mapper//";
+        String savePath = "mapper//";
         Template template = cfg.getTemplate("Dao.ftl", Locale.CHINA);
         root.put("tableName", table);
         hf.buildTemplate(root, projectPath, savePath, fileName, template);
-        String savePathImpl =  "mapper//";
+        String savePathImpl = "mapper//";
         String fileimplname = table + "Mapper.xml";
         template = cfg.getTemplate("Mapper2.ftl", Locale.CHINA);
         hf.buildTemplate(root, projectPath, savePathImpl, fileimplname, template);
-        savePath =  "service//";
-        fileName =  table + "Service.java";
+        savePath = "service//";
+        fileName = table + "Service.java";
         template = cfg.getTemplate("service.ftl", Locale.CHINA);
         hf.buildTemplate(root, projectPath, savePath, fileName, template);
-        savePathImpl =  "service//impl//";
+        savePathImpl = "service//impl//";
         fileimplname = table + "ServiceImpl.java";
         template = cfg.getTemplate("serviceImpl.ftl", Locale.CHINA);
         hf.buildTemplate(root, projectPath, savePathImpl, fileimplname, template);
-        savePathImpl =  "//entity//vo//";
+        savePathImpl = "//entity//vo//";
         fileimplname = table + "VO.java";
         template = cfg.getTemplate("vo.ftl", Locale.CHINA);
         hf.buildTemplate(root, projectPath, savePathImpl, fileimplname, template);
-        savePathImpl =  "entity//po//";
+        savePathImpl = "entity//po//";
         fileimplname = table + "PO.java";
         template = cfg.getTemplate("po.ftl", Locale.CHINA);
         hf.buildTemplate(root, projectPath, savePathImpl, fileimplname, template);
-        savePathImpl =  "entity//dto//";
+        savePathImpl = "entity//dto//";
         fileimplname = table + "DTO.java";
         template = cfg.getTemplate("dto.ftl", Locale.CHINA);
         hf.buildTemplate(root, projectPath, savePathImpl, fileimplname, template);
-     
-       
+
+
     }
 
     public void buildTemplate(Map root, String projectPath, String savePath,
@@ -286,7 +285,7 @@ public class FreeMarkerUtil {
             newsDir.mkdirs();
         }
         if (!file.exists()) {
-        	 root.put("fileExist", false);
+            root.put("fileExist", false);
             try {
                 // SYSTEM_ENCODING = "UTF-8";
                 Writer out = new OutputStreamWriter(new FileOutputStream(

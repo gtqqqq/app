@@ -7,10 +7,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ${tableName}ServiceImpl implements ${tableName}Service {
 </#if>
-	@Autowired 
-	${tableName}Mapper ${tableName}mapper;
+	@Autowired
+${tableName}Mapper ${tableName}mapper;
 	@Override
-	 public   List<${tableName}VO> select${tableName}ByList(${tableName}PO ${tableVar}PO){
+	 public   List
+<${tableName}VO> select${tableName}ByList(${tableName}PO ${tableVar}PO){
 		return ${tableName}mapper.getListByDealerId(dealerId);
 	}
 	

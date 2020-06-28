@@ -11,7 +11,6 @@ import java.util.Stack;
 
 /**
  * DynamicClassLoader 动态类加载器
- *
  */
 public class DynamicClassLoader extends ClassLoader {
 
@@ -65,7 +64,7 @@ public class DynamicClassLoader extends ClassLoader {
         byte[] raw = null;
         InputStream stream = null;
         try {
-            File file = new File("E:/workspace/shequ/fan-web-shequyy/target/classes/" + fullClassPath.replaceAll("\\.", "/")+".class");
+            File file = new File("E:/workspace/shequ/fan-web-shequyy/target/classes/" + fullClassPath.replaceAll("\\.", "/") + ".class");
             stream = new FileInputStream(file);
             raw = new byte[(int) file.length()];
             stream.read(raw);
@@ -80,59 +79,59 @@ public class DynamicClassLoader extends ClassLoader {
         return raw;
     }
 
-    
-public static String getClassFile(String loadPath) throws Exception {
-	File clazzPath = new File(loadPath);
-	 
-	// 记录加载.class文件的数量
-	int clazzCount = 0;
-	 String clazz = null;
-	if (clazzPath.exists() && clazzPath.isDirectory()) {
-	    // 获取路径长度
-	    int clazzPathLen = clazzPath.getAbsolutePath().length() + 1;
-	 
-	    Stack<File> stack = new Stack<File>();
-	    stack.push(clazzPath);
-	 
-	    // 遍历类路径
-	    while (stack.isEmpty() == false) {
-	        File path = stack.pop();
-	        File[] classFiles = path.listFiles(new FileFilter() {
-	            public boolean accept(File pathname) {
-	                return pathname.isDirectory() || pathname.getName().endsWith(".class");
-	            }
-	        });
-	        for (File subFile : classFiles) {
-	            if (subFile.isDirectory()) {
-	                stack.push(subFile);
-	            } else {
-	                if (clazzCount++ == 0) {
-	                    Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
-	                    boolean accessible = method.isAccessible();
-	                    try {
-	                        if (accessible == false) {
-	                            method.setAccessible(true);
-	                        }
-	                        // 设置类加载器
-	                        URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
-	                        // 将当前类路径加入到类加载器中
-	                        method.invoke(classLoader, clazzPath.toURI().toURL());
-	                    } finally {
-	                        method.setAccessible(accessible);
-	                    }
-	                }
-	                // 文件名称
-	                String className = subFile.getAbsolutePath();
-	                className = className.substring(clazzPathLen, className.length() - 6);
-	                className = className.replace(File.separatorChar, '.');
-	                // 加载Class类
-	                Class.forName(className);
-	                System.out.println("读取应用程序类文件[class={}]"+ className);
-	                clazz = className;
-	            }
-	        }
-	    }
-	}
-	return clazz;	
-}
+
+    public static String getClassFile(String loadPath) throws Exception {
+        File clazzPath = new File(loadPath);
+
+        // 记录加载.class文件的数量
+        int clazzCount = 0;
+        String clazz = null;
+        if (clazzPath.exists() && clazzPath.isDirectory()) {
+            // 获取路径长度
+            int clazzPathLen = clazzPath.getAbsolutePath().length() + 1;
+
+            Stack<File> stack = new Stack<File>();
+            stack.push(clazzPath);
+
+            // 遍历类路径
+            while (stack.isEmpty() == false) {
+                File path = stack.pop();
+                File[] classFiles = path.listFiles(new FileFilter() {
+                    public boolean accept(File pathname) {
+                        return pathname.isDirectory() || pathname.getName().endsWith(".class");
+                    }
+                });
+                for (File subFile : classFiles) {
+                    if (subFile.isDirectory()) {
+                        stack.push(subFile);
+                    } else {
+                        if (clazzCount++ == 0) {
+                            Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
+                            boolean accessible = method.isAccessible();
+                            try {
+                                if (accessible == false) {
+                                    method.setAccessible(true);
+                                }
+                                // 设置类加载器
+                                URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+                                // 将当前类路径加入到类加载器中
+                                method.invoke(classLoader, clazzPath.toURI().toURL());
+                            } finally {
+                                method.setAccessible(accessible);
+                            }
+                        }
+                        // 文件名称
+                        String className = subFile.getAbsolutePath();
+                        className = className.substring(clazzPathLen, className.length() - 6);
+                        className = className.replace(File.separatorChar, '.');
+                        // 加载Class类
+                        Class.forName(className);
+                        System.out.println("读取应用程序类文件[class={}]" + className);
+                        clazz = className;
+                    }
+                }
+            }
+        }
+        return clazz;
+    }
 }

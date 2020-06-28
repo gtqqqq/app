@@ -18,6 +18,6 @@ public class ${tableName}DTO  implements Serializable {
     public void set${column.columnName?cap_first }(String ${column.columnName}) {
         this.${column.columnName} = ${column.columnName};
     }
-    
+
 </#list>
 <#if fileExist == false>}</#if>

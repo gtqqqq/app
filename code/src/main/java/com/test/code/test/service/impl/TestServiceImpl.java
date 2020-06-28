@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @since 2020-06-14
  */
 @Service
-@DS("mssql")
+@DS("postgres")
 public class TestServiceImpl extends ServiceImpl<TestMapper, Test> implements ITestService {
 
 }

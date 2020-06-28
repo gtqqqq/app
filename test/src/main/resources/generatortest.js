@@ -1,5 +1,9 @@
+import com
 
-import com.kyoocean.shipformula.framework.base.BaseConditionVO;
+.
+kyoocean.shipformula.framework.base.BaseConditionVO;
 
-public class MediaCond extends BaseConditionVO {
+public
+
+class MediaCond extends BaseConditionVO {
 }

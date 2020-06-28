@@ -26,7 +26,8 @@
             where a.cancel_flag = 0
             <if test="paginationRequest.params.name !=null and paginationRequest.params.name !=''">
                 AND a.name REGEXP
-                concat('([\s\S]*',${'#'?html}{paginationRequest.params.name},'[\s\S]*|','.*',${'#'?html}{paginationRequest.params.name},'.*)')
+                concat('([\s\S]*',${'#'?html}{paginationRequest.params.name},'[\s\S]*|','.*',${'#'?html}
+                {paginationRequest.params.name},'.*)')
             </if>
             <if test="paginationRequest.params.userCode !=null and paginationRequest.params.userCode !=''">
                 AND a.user_code REGEXP concat('([\s\S]*',${'#'?html}{paginationRequest.params.userCode},'[\s\S]*)')
@@ -42,7 +43,7 @@
                 and a.id in
                 <foreach item="id" index="index" collection="paginationRequest.params.idList" open="(" separator=","
                          close=")">
-                ${'#'?html}{id}
+                    ${'#'?html}{id}
                 </foreach>
             </if>
         </sql>
@@ -63,7 +64,7 @@
             <if test="paramMap.idList != null and paramMap.idList.size() > 0">
                 and a.id in
                 <foreach item="id" index="index" collection="paramMap.idList" open="(" separator="," close=")">
-                ${'#'?html}{id}
+                    ${'#'?html}{id}
                 </foreach>
             </if>
         </select>
@@ -80,7 +81,7 @@
             <if test="paramMap.idList != null and paramMap.idList.size() > 0">
                 and a.id in
                 <foreach item="id" index="index" collection="paramMap.idList" open="(" separator="," close=")">
-                ${'#'?html}{id}
+                    ${'#'?html}{id}
                 </foreach>
             </if>
         </select>
@@ -97,7 +98,7 @@
             <if test="paramMap.idList != null and paramMap.idList.size() > 0">
                 and a.id in
                 <foreach item="id" index="index" collection="paramMap.idList" open="(" separator="," close=")">
-                ${'#'?html}{id}
+                    ${'#'?html}{id}
                 </foreach>
             </if>
         </select>
@@ -106,7 +107,7 @@
     <#if method == "insert-Map">
         <insert id="insert${tableName}">
             <#list columns as column>
-            ${column},
+                ${column},
             </#list>
         </insert>
     </#if>
@@ -115,7 +116,7 @@
         <update id="update${tableName}">
             update set
             <#list columns as column>
-            ${column},
+                ${column},
             </#list>
             where id=${'#'?html}{id}
         </update>
@@ -132,7 +133,7 @@
             <if test="paramMap.idList != null and paramMap.idList.size() > 0">
                 and a.id in
                 <foreach item="id" index="index" collection="paramMap.idList" open="(" separator="," close=")">
-                ${'#'?html}{id}
+                    ${'#'?html}{id}
                 </foreach>
             </if>
         </select>

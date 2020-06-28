@@ -5,19 +5,19 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * *************************************************************
  *
+ * @author : guantianqi
  * @项目名 : test
  * @文件名 : selfCurrentHashMap
- * @建立日期    : 2018/11/30
- * @author    : guantianqi
- * @模块        :
- * @描述        :
- * @备注        : *************************************************************
+ * @建立日期 : 2018/11/30
+ * @模块 :
+ * @描述 :
+ * @备注 : *************************************************************
  */
-@SuppressWarnings({ "serial", "rawtypes" })
-public class SelfCurrentHashMap extends ConcurrentHashMap{
+@SuppressWarnings({"serial", "rawtypes"})
+public class SelfCurrentHashMap extends ConcurrentHashMap {
     @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public Object put(Object key, Object value) {
-        return super.put(key,value==null?"":value);
+        return super.put(key, value == null ? "" : value);
     }
 }

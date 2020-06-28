@@ -30,15 +30,19 @@ public class ${tableName}Model {
 			throws BusinessException {
 	PaginationMapResponse paginationMapResponse = PaginationUtils.createPaginationMapResponse(paginationRequest);
 	Integer pageCount =  ${tableVar}Dao.find${tableName}ListByCount(paginationRequest);
-	List<HashMap<String, Object>> datalist = ${tableVar}Dao.find${tableName}ListByPage(paginationRequest);
+	List
+<HashMap
+<String, Object>> datalist = ${tableVar}Dao.find${tableName}ListByPage(paginationRequest);
 	if (datalist != null && datalist.size() > 0 && paginationRequest.adjust(pageCount, paginationMapResponse)) {
 		paginationMapResponse.setData(datalist);
 		}
 		return paginationMapResponse;
 	}
 	
-	public Map<String, Object> find${tableName}bySum(PaginationRequest paginationRequest){
-			Map<String, Object> datamaplist = ${tableVar}Dao.find${tableName}bySum(paginationRequest);
+	public Map
+<String, Object> find${tableName}bySum(PaginationRequest paginationRequest){
+			Map
+<String, Object> datamaplist = ${tableVar}Dao.find${tableName}bySum(paginationRequest);
 			return datamaplist;
 			
 	}

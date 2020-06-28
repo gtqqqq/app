@@ -22,43 +22,55 @@ public class ${tableName}ApiImpl extends BaseApi implements ${tableName}Api {
 
 	@Resource
 	private ${tableName}Model ${tableVar}Model;
-</#if>	
-    <#list methods as method>
+</#if>
+<#list methods as method>
 
-	<#if method == "List_String-List_String">
+    <#if method == "List_String-List_String">
 	@Override
-	public List<String> find${tableName}byIdList(List<String> idList){
+	public List
+    <String> find${tableName}byIdList(List
+    <String> idList){
 		return  ${tableVar}Model.find${tableName}byIdList(idList);
 	}
     </#if>
-	<#if method == "List_Map-Map">
+    <#if method == "List_Map-Map">
 	@Override
-	public List<Map<String, Object>> find${tableName}${serverName}List(Map<String, Object> paramMap) {
+	public List
+        <Map
+        <String, Object>> find${tableName}${serverName}List(Map
+        <String, Object> paramMap) {
 		return ${tableVar}Model.find${tableName}${serverName}List(paramMap);
 	}
-	</#if>
-	<#if method == "insert-Map">
+    </#if>
+    <#if method == "insert-Map">
 	@Override
-	public Integer insert${tableName}(Map<String, Object> paramMap) {
+	public Integer insert${tableName}(Map
+        <String, Object> paramMap) {
 	    return ${tableVar}Model.insert${tableName}(paramMap);
 	}
-	</#if>
+    </#if>
     <#if method == "update-Map">
 	@Override
-	public Integer update${tableName}(Map<String, Object> paramMap) {
+	public Integer update${tableName}(Map
+        <String, Object> paramMap) {
 	    return ${tableVar}Model.update${tableName}(paramMap);
 	}
-	</#if>
+    </#if>
     <#if method == "Map-Map">
 	@Override
-	public Map<String, Object> find${tableName}(Map<String, Object> paramMap){
+	public Map
+        <String, Object> find${tableName}(Map
+        <String, Object> paramMap){
 	    return ${tableVar}Model.find${tableName}(paramMap);
 	}
-	</#if>
-  <#if method == "HashMap-Page-PaginationRequest">
+    </#if>
+    <#if method == "HashMap-Page-PaginationRequest">
     @Override
-	public ResultDto<PaginationMapResponse> find${tableName}ListByPage(PaginationRequest paginationRequest) {
-		ResultDto<PaginationMapResponse> serviceResultDto = new PageResultDto<PaginationMapResponse>();
+	public ResultDto
+    <PaginationMapResponse> find${tableName}ListByPage(PaginationRequest paginationRequest) {
+		ResultDto
+    <PaginationMapResponse> serviceResultDto = new PageResultDto
+    <PaginationMapResponse>();
 		try {
 			PaginationMapResponse paginationMapResponse = ${tableVar}Model
 					.find${tableName}ListByPage(paginationRequest);
@@ -73,13 +85,20 @@ public class ${tableName}ApiImpl extends BaseApi implements ${tableName}Api {
 		}
 		return serviceResultDto;
 	}
-	</#if>
+    </#if>
     <#if method == "Map-sum-PaginationRequest">
     @Override
-	public ResultDto<Map<String, Object>> find${tableName}bySum(PaginationRequest paginationRequest) {
-		ResultDto<Map<String, Object>> serviceResultDto = new ResultDto<Map<String, Object>>();
+	public ResultDto
+        <Map
+        <String, Object>> find${tableName}bySum(PaginationRequest paginationRequest) {
+		ResultDto
+        <Map
+        <String, Object>> serviceResultDto = new ResultDto
+        <Map
+        <String, Object>>();
 		try {
-			Map<String, Object> resultMap = ${tableVar}Model.find${tableName}bySum(paginationRequest);
+			Map
+        <String, Object> resultMap = ${tableVar}Model.find${tableName}bySum(paginationRequest);
 			serviceResultDto.setSuccess(true);
 			serviceResultDto.setResult(resultMap);
 		} catch (Exception e) {
@@ -90,6 +109,6 @@ public class ${tableName}ApiImpl extends BaseApi implements ${tableName}Api {
 		}
 		return serviceResultDto;
 	}
-	</#if>
+    </#if>
 </#list>
 <#if fileExist == false>}</#if>

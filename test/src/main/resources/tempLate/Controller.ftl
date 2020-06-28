@@ -25,14 +25,15 @@ public class ${webTableName}Controller extends WebBaseController {
 	private ${webTableName}Model ${webTableName}Model;
 
 	@RequestMapping(value = "/to${tableName}List.jhtml", method = { RequestMethod.GET, RequestMethod.POST })
-	public String to${tableName}List(HttpServletRequest request, Map<String, Object> modelMap)
+	public String to${tableName}List(HttpServletRequest request, Map
+<String, Object> modelMap)
 			throws BusinessException {
 		return "@TODOTAG/${tableName}_list";
 	}
 	@ResponseBody
 	@RequestMapping(value = "/find${tableName}ListByPage.ajax", method = { RequestMethod.GET, RequestMethod.POST })
 	public PaginationMapResponse find${tableName}ListByPage(HttpServletRequest httpServletRequest,
-			${tableName}Form ${tableVar}Form) throws BusinessException {
+${tableName}Form ${tableVar}Form) throws BusinessException {
 		
 		PaginationRequest paginationRequest = PaginationUtils.createPaginationRequest(${tableVar}Form);
 		PaginationMapResponse paginationMapResponse = ${webTableName}Model
@@ -42,8 +43,9 @@ public class ${webTableName}Controller extends WebBaseController {
 
 	@ResponseBody
 	@RequestMapping(value = "/find${tableName}bySum.ajax", method = { RequestMethod.GET, RequestMethod.POST })
-	public Map<String, Object> find${tableName}bySum(HttpServletRequest httpServletRequest,
-			${tableName}Form ${tableVar}Form) throws BusinessException {
+	public Map
+<String, Object> find${tableName}bySum(HttpServletRequest httpServletRequest,
+${tableName}Form ${tableVar}Form) throws BusinessException {
 			PaginationRequest paginationRequest = PaginationUtils.createPaginationRequest(${tableVar}Form);
 		return ${webTableName}Model.find${tableName}bySum(paginationRequest);
 	}

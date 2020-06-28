@@ -10,37 +10,38 @@ import java.nio.channels.FileChannel;
 import java.util.*;
 
 public class CreatBean {
-    static String projectName = CreatBean.class.getResource("").getPath()+"generator";
-    static String poClass  = "C:\\Users\\Administrator\\IdeaProjects\\app\\code\\src\\main\\java\\com\\test\\code\\dto\\User.java";
+    static String projectName = CreatBean.class.getResource("").getPath() + "generator";
+    static String poClass = "C:\\Users\\Administrator\\IdeaProjects\\app\\code\\src\\main\\java\\com\\test\\code\\dto\\User.java";
     static String table = "test";
-    
-    static String projectWebName = "";
+    static String projectwebname = "";
     static String serverName = "orderCount";
-    private static Map<String, Object> data = new SelfCurrentHashMap();
+    private static
+    Map<String, Object> data = new SelfCurrentHashMap();
 
     static {
 
-            //创建Properties对象
-            Properties p = new Properties();
-            //获取文件输入流
-            InputStream in = null;
-            try {
-                in = new FileInputStream(JDBCUtilAll.class.getResource("").getPath()+"db.properties");
-                //加载输入流
-                p.load(in);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        table=p.getProperty("dbTableName",null);
-        data.put("serverName",  p.getProperty("serverName",null));
-        data.put("template",  p.getProperty("template",null));
-        data.put("outFileName",  p.getProperty("outFileName",null));
+        //创建Properties对象
+        Properties p = new Properties();
+        //获取文件输入流
+        InputStream in = null;
+        try {
+            in = new FileInputStream(JDBCUtilAll.class.getResource("").getPath() + "db.properties");
+            //加载输入流
+            p.load(in);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        table = p.getProperty("dbTableName", null);
+        data.put("serverName", p.getProperty("serverName", null));
+        data.put("template", p.getProperty("template", null));
+        data.put("outFileName", p.getProperty("outFileName", null));
         data.put("dbtableName", table);
         data.put("projectPath", projectName);
-        poClass= p.getProperty("outFileName",null);
+        poClass = p.getProperty("outFileName", null);
     }
+
     public static void main(String[] args) throws Exception {
 //        String s = "汉字-123-abc";
 //        printIT(s.getBytes());
@@ -50,41 +51,44 @@ public class CreatBean {
 //        printIT(s.getBytes("UnicodeBigUnmarked"));
         //System.getProperty("user.dir");
 //        StringUtils.isNotBlank(null);
-        System.out.println("org.postgresql.Driver".contains("postgresql")); ;
+        System.out.println("org.postgresql.Driver".contains("postgresql"));
+        ;
     }
+
     @Test
     public void test() throws Exception {
 //        System.out.print(URLDecoder.decode(Thread.currentThread().getContextClassLoader().
 //                getResource("/").getPath(), "UTF-8"));
-       System.out.println(Thread.currentThread().getContextClassLoader().getResource("").getPath());
-        System.out.println( CreatBean.class.getResource("").getPath());
-        System.out.println(this .getClass().getClassLoader().getResource("").getPath());
-       // CRUDTemplate.executeQuery(mysql,new BeanHandler<>(Object.class),table);
-        System.out.println(        StringUtils.isNotBlank(null));
+        System.out.println(Thread.currentThread().getContextClassLoader().getResource("").getPath());
+        System.out.println(CreatBean.class.getResource("").getPath());
+        System.out.println(this.getClass().getClassLoader().getResource("").getPath());
+        // CRUDTemplate.executeQuery(mysql,new BeanHandler<>(Object.class),table);
+        System.out.println(StringUtils.isNotBlank(null));
 
     }
+
     @Test
     public void creatColumnCode() throws Exception {
         FreeMarkerUtil util = new FreeMarkerUtil();
         util.init();
         getColumn();
         List<String> list1 = (List<String>) data.get("columnNames");
-        Map<String,String> list2 = (Map<String, String>) data.get("conmments");
+        Map<String, String> list2 = (Map<String, String>) data.get("conmments");
         List<String> list3 = (List<String>) data.get("columnTypes");
         List<Map<String, Object>> list4 = new ArrayList<Map<String, Object>>();
 
-        if (list1.size() > 0 &&  list1.size() == list3.size()) {
+        if (list1.size() > 0 && list1.size() == list3.size()) {
             for (int i = 0; i < list1.size(); i++) {
                 Map<String, Object> columns = new HashMap<String, Object>();
                 try {
                     columns.put("columnName", list1.get(i));
-                    columns.put("columnComment", list2.get(list1.get(i))==null?"":list2.get(list1.get(i)));
-                    columns.put("columnType",list3.get(i)==null?"String":list3.get(i));
+                    columns.put("columnComment", list2.get(list1.get(i)) == null ? "" : list2.get(list1.get(i)));
+                    columns.put("columnType", list3.get(i) == null ? "String" : list3.get(i));
                     //columns.put("dbcolumnType", list3.get(i).toUpperCase());
                     //columns.put("dbcolumnName", list1.get(i));
                 } catch (Exception e) {
                     e.printStackTrace();
-                    System.out.println (i+":"+e.getMessage()+e.getLocalizedMessage()+e.getCause());
+                    System.out.println(i + ":" + e.getMessage() + e.getLocalizedMessage() + e.getCause());
                 }
                 list4.add(columns);
             }
@@ -98,43 +102,43 @@ public class CreatBean {
         FreeMarkerUtil util = new FreeMarkerUtil();
         util.init();
         JDBCUtilAll jdbc = new JDBCUtilAll();
-        String sql="";
+        String sql = "";
         List<Map<String, Object>> dbColumns = new ArrayList<Map<String, Object>>();
-       String driverName=JDBCUtilAll.driverName();
-        if(driverName.contains("mysql")){
-          sql="SELECT COLUMN_NAME, DATA_TYPE,  COLUMN_COMMENT,character_maximum_length  FROM INFORMATION_SCHEMA.COLUMNS where table_name='"+table+"'";
-            dbColumns =jdbc.excuteQuery(sql,null);
-            for (Map<String, Object> dbc:dbColumns ){
-                dbc.put("columnLength",dbc.get("character_maximum_length"));
-                dbc.put("columnComment",dbc.get("COLUMN_COMMENT"));
-                dbc.put("columnName",VarNameRule.columnToProperty(dbc.get("COLUMN_NAME")==null?"":dbc.get("COLUMN_NAME").toString()));
-                dbc.put("columnType",VarNameRule.dbTypeToJavaType(dbc.get("DATA_TYPE")==null?"":dbc.get("DATA_TYPE").toString()));
+        String driverName = JDBCUtilAll.driverName();
+        if (driverName.contains("mysql")) {
+            sql = "SELECT COLUMN_NAME, DATA_TYPE,  COLUMN_COMMENT,character_maximum_length  FROM INFORMATION_SCHEMA.COLUMNS where table_name='" + table + "'";
+            dbColumns = jdbc.excuteQuery(sql, null);
+            for (Map<String, Object> dbc : dbColumns) {
+                dbc.put("columnLength", dbc.get("character_maximum_length"));
+                dbc.put("columnComment", dbc.get("COLUMN_COMMENT"));
+                dbc.put("columnName", VarNameRule.columnToProperty(dbc.get("COLUMN_NAME") == null ? "" : dbc.get("COLUMN_NAME").toString()));
+                dbc.put("columnType", VarNameRule.dbTypeToJavaType(dbc.get("DATA_TYPE") == null ? "" : dbc.get("DATA_TYPE").toString()));
             }
-        }else if(driverName.contains("postgresql")){
-            sql="SELECT c.COLUMN_NAME, c.DATA_TYPE,c.numeric_precision," +
+        } else if (driverName.contains("postgresql")) {
+            sql = "SELECT c.COLUMN_NAME, c.DATA_TYPE,c.numeric_precision," +
                     " (SELECT des.description AS COMMENT " +
                     " FROM pg_attribute AS a, pg_description AS des, pg_class AS pgc " +
                     " WHERE pgc.oid = a.attrelid AND des.objoid = pgc.oid AND pg_table_is_visible(pgc.oid) " +
-                    " AND pgc.relname = '"+table+"' and c.COLUMN_NAME=a.attname AND a.attnum = des.objsubid)columnComment" +
-                    " from information_schema.columns c WHERE TABLE_NAME='"+table+"';";
-            dbColumns =jdbc.excuteQuery(sql,null);
-            for (Map<String, Object> dbc:dbColumns ){
-                dbc.put("columnLength",dbc.get("numeric_precision"));
-                dbc.put("columnComment",dbc.get("columncomment"));
-                dbc.put("columnName",VarNameRule.columnToProperty(dbc.get("column_name")==null?"":dbc.get("column_name").toString()));
-                dbc.put("columnType",VarNameRule.dbTypeToJavaType(dbc.get("DATA_TYPE")==null?"":dbc.get("DATA_TYPE").toString()));
+                    " AND pgc.relname = '" + table + "' and c.COLUMN_NAME=a.attname AND a.attnum = des.objsubid)columnComment" +
+                    " from information_schema.columns c WHERE TABLE_NAME='" + table + "';";
+            dbColumns = jdbc.excuteQuery(sql, null);
+            for (Map<String, Object> dbc : dbColumns) {
+                dbc.put("columnLength", dbc.get("numeric_precision"));
+                dbc.put("columnComment", dbc.get("columncomment"));
+                dbc.put("columnName", VarNameRule.columnToProperty(dbc.get("column_name") == null ? "" : dbc.get("column_name").toString()));
+                dbc.put("columnType", VarNameRule.dbTypeToJavaType(dbc.get("DATA_TYPE") == null ? "" : dbc.get("DATA_TYPE").toString()));
             }
-        }else if(driverName.contains("sqlserver")) {
-            sql="SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='"+table+"';";
-            dbColumns =jdbc.excuteQuery(sql,null);
-            for (Map<String, Object> dbc:dbColumns ){
-                dbc.put("columnLength",dbc.get("character_maximum_length"));
-                dbc.put("columnComment",dbc.get("COLUMN_COMMENT"));
-                dbc.put("columnName",VarNameRule.columnToProperty(dbc.get("COLUMN_NAME")==null?"":dbc.get("COLUMN_NAME").toString()));
-                dbc.put("columnType",VarNameRule.dbTypeToJavaType(dbc.get("DATA_TYPE")==null?"":dbc.get("DATA_TYPE").toString()));
+        } else if (driverName.contains("sqlserver")) {
+            sql = "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='" + table + "';";
+            dbColumns = jdbc.excuteQuery(sql, null);
+            for (Map<String, Object> dbc : dbColumns) {
+                dbc.put("columnLength", dbc.get("character_maximum_length"));
+                dbc.put("columnComment", dbc.get("COLUMN_COMMENT"));
+                dbc.put("columnName", VarNameRule.columnToProperty(dbc.get("COLUMN_NAME") == null ? "" : dbc.get("COLUMN_NAME").toString()));
+                dbc.put("columnType", VarNameRule.dbTypeToJavaType(dbc.get("DATA_TYPE") == null ? "" : dbc.get("DATA_TYPE").toString()));
             }
         }
-        data.put("columns",dbColumns);
+        data.put("columns", dbColumns);
         util.creatCode(util, data, table);
     }
 
@@ -152,7 +156,7 @@ public class CreatBean {
             StringBuilder strBuf = new StringBuilder("");
             String tempString = null;
             List<String> columlist = new ArrayList<String>();
-            Map<String,String>  commentlist = new HashMap<>();
+            Map<String, String> commentlist = new HashMap<>();
             List<String> commentTypelist = new ArrayList<String>();
             while (fcin.read(rBuffer) != -1) {
                 int rSize = rBuffer.position();
@@ -181,38 +185,38 @@ public class CreatBean {
         } finally {
         }
     }
+
     private static void getColumnsName(List<String> list, String line, StringBuffer str) {
         if (line.contains("private") && !line.contains("static")) {
-            line = str.substring(line.lastIndexOf(" ")+1, line.indexOf(";"));
+            line = str.substring(line.lastIndexOf(" ") + 1, line.indexOf(";"));
             line = line.replaceAll("\r|\n", "");
             list.add(line);
         }
     }
-    private static void getCommentName(Map<String,String> list, String line, StringBuffer str) {
+
+    private static void getCommentName(Map<String, String> list, String line, StringBuffer str) {
         if (line.contains("/*") && line.contains("*/\n")) {
-            String line2=line;
+            String line2 = line;
             line = str.substring(line.lastIndexOf("/*") + 2, line.indexOf("*/"));
-            line = line.replaceAll("\r|\n", "");
-            list.put(line2,line);
+            String s = line = line.replaceAll("\r|\n", "");
+            list.put(line2, line);
         }
     }
+
     private static void getColumnType(List<String> list, String line, StringBuffer str) {
         if (line.contains("private") && !line.contains("static")) {
             line = str.substring(line.indexOf("private ") + 8, line.lastIndexOf(" "));
             line = line.replaceAll("\r|\n", "");
             list.add(line);
         }
-
     }
 
     private void getColumn() throws FileNotFoundException {
         int _5M = 1024 * 1024 * 50;
-        File target = new File(poClass );
+        File target = new File(poClass);
         FileChannel fcin = new RandomAccessFile(target, "r").getChannel();
         ByteBuffer rBuffer = ByteBuffer.allocate(_5M);
         saveOtherFile(_5M, fcin, rBuffer);
     }
-
-
 
 }

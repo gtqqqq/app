@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="${daoPackageName}.${tableName}Mapper">
     <resultMap id="BaseResultMap" type="${poPackageName}.${tableName}Bean">
-        <id column="${columns[0].dbcolumnName}" jdbcType="${columns[0].dbcolumnType}" property="${columns[0].columnName}"/>
+        <id column="${columns[0].dbcolumnName}" jdbcType="${columns[0].dbcolumnType}"
+            property="${columns[0].columnName}"/>
     <#list columns as column>
         <result column="${column.dbcolumnName}" jdbcType="${column.dbcolumnType}" property="${column.columnName}"/>
     </#list>
@@ -32,14 +33,14 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
         <#list columns as column>
             <if test="${column.columnName} != null">
-            ${column.dbcolumnName},
+                ${column.dbcolumnName},
             </if>
         </#list>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
         <#list columns as column>
             <if test="${column.columnName} != null">
-            ${'#'?html}{${column.columnName},jdbcType=${column.dbcolumnType}},
+                ${'#'?html}{${column.columnName},jdbcType=${column.dbcolumnType}},
             </if>
         </#list>
         </trim>
@@ -53,7 +54,7 @@
         <set>
         <#list columns as column>
             <if test="${column.columnName} != null">
-            ${column.dbcolumnType} = ${'#'?html}{${column.columnName},jdbcType=${column.dbcolumnType}},
+                ${column.dbcolumnType} = ${'#'?html}{${column.columnName},jdbcType=${column.dbcolumnType}},
             </if>
         </#list>
         </set>
