@@ -54,11 +54,15 @@ public class CodeGteenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://118.89.222.159:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&allowPublicKeyRetrieval=true");
         // dsc.setSchemaName("public");
-        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-        dsc.setUsername("root");
-        dsc.setPassword("root");
+//        dsc.setUrl("jdbc:mysql://118.89.222.159:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&allowPublicKeyRetrieval=true");
+//        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
+//        dsc.setUsername("root");
+//        dsc.setPassword("root");
+          dsc.setUrl("jdbc:sqlserver://118.89.222.159:1433;DatabaseName=test");
+        dsc.setUsername("sa");
+        dsc.setPassword("Guan543543");
+        dsc.setDriverName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         mpg.setDataSource(dsc);
 
         // 包配置

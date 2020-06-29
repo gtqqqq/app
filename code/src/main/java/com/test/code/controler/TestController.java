@@ -22,6 +22,7 @@ public class TestController {
     public Object test(){
   Page page=new Page(1,10);          //1表示当前页，而10表示每页的显示显示的条目数
       Test ts = iTestService.getById(1);
+        System.out.println("test1");
         return ts;
     }
 //    @GetMapping("/testredis")

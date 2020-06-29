@@ -4,6 +4,7 @@ import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.test.code.test.entity.Test;
 import com.test.code.test.mapper.TestMapper;
+import com.test.code.test.service.ITestMssqlService;
 import com.test.code.test.service.ITestService;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @since 2020-06-14
  */
 @Service
-@DS("mysql")
-public class TestServiceImpl extends ServiceImpl<TestMapper, Test> implements ITestService {
+@DS("mssql")
+public class TestMssqlServiceImpl extends ServiceImpl<TestMapper, Test> implements ITestMssqlService {
 
 }
