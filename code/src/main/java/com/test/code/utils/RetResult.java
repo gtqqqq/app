@@ -1,7 +1,7 @@
 package com.test.code.utils;
 import java.io.Serializable;
 
-import com.alibaba.fastjson.JSON;
+
 
 /**
  * @Description: 返回对象实体

@@ -82,24 +82,7 @@ public class CodeGteenerator {
 
         // 自定义controller的代码模板
         String templateControllerPath = "/template/controller.java.ftl";
-        // 自定义输出配置
-        List<FileOutConfig> focList1 = new ArrayList<>();
-        // 自定义配置会被优先输出
-        focList1.add(new FileOutConfig(templateControllerPath) {
-            @Override
-            public String outputFile(TableInfo tableInfo) {
-                // 自定义输出文件名 + pc.getModuleName()
-                String expand = projectPath + "/src/main/java/" +pc.getModuleName() + "/" + "controller";
-                String entityFile = String.format((expand + File.separator + "%s" + ".java"), tableInfo.getControllerName());
-                return entityFile;
-            }
-        });
-
-        // 如果模板引擎是 freemarker
         String templatePath = "templates/mappertest.xml.ftl";
-        // 如果模板引擎是 velocity
-        // String templatePath = "/templates/mapper.xml.vm";
-
         // 自定义输出配置
         List<FileOutConfig> focList = new ArrayList<>();
         // 自定义配置会被优先输出
@@ -109,6 +92,16 @@ public class CodeGteenerator {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
                 return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
                         + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+            }
+        });
+        // 自定义配置会被优先输出
+        focList.add(new FileOutConfig(templateControllerPath) {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义输出文件名 + pc.getModuleName()
+                String expand = projectPath + "/src/main/java/" +pc.getModuleName() + "/" + "controller";
+                String entityFile = String.format((expand + File.separator + "%s" + ".java"), tableInfo.getControllerName());
+                return entityFile;
             }
         });
         /*
