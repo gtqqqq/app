@@ -1,4 +1,4 @@
-package com.test.code;
+package resource;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
@@ -18,7 +18,7 @@ import java.util.Properties;
 import java.util.Scanner;
 
 // 演示例子，执行 main 方法控制台输入模块表名回车自动生成对应项目目录中
-public class CodeGteenerator {
+public class CodeGteenerator2 {
 
     /**
      * <p>
@@ -45,7 +45,7 @@ public class CodeGteenerator {
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        String projectPath = System.getProperty("user.dir");
+        String projectPath = "D:\\project\\code"; //System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("gtq");
         gc.setOpen(false);
@@ -55,21 +55,16 @@ public class CodeGteenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        // dsc.setSchemaName("public");
-//        dsc.setUrl("jdbc:mysql://118.89.222.159:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&allowPublicKeyRetrieval=true");
-//        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-//        dsc.setUsername("root");
-//        dsc.setPassword("root");
-          dsc.setUrl("jdbc:sqlserver://118.89.222.159:1433;DatabaseName=test");
-        dsc.setUsername("sa");
-        dsc.setPassword("Guan543543");
-        dsc.setDriverName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        dsc.setUrl(getPropertiesName("url"));
+        dsc.setUsername(getPropertiesName("username"));
+        dsc.setPassword(getPropertiesName("password"));
+        dsc.setDriverName(getPropertiesName("driverClassName"));
         mpg.setDataSource(dsc);
 
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setModuleName(scanner("模块"));
-        pc.setParent("com.test");
+        pc.setParent("com");
         mpg.setPackageInfo(pc);
 
         // 自定义配置
@@ -165,7 +160,7 @@ public class CodeGteenerator {
         //获取文件输入流
         InputStream in = null;
         try {
-            in = new FileInputStream(CodeGteenerator.class.getResource("").getPath() + "db.properties");
+            in = new FileInputStream(CodeGteenerator2.class.getResource("").getPath() + "db/db.properties");
             //加载输入流
             p.load(in);
         } catch (FileNotFoundException e) {

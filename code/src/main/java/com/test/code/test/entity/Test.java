@@ -10,6 +10,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.poi.ss.formula.functions.T;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.ObjectFactory;
 
 /**
  * <p>
@@ -21,7 +24,7 @@ import lombok.Setter;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Test implements Serializable {
+public class Test implements Serializable, ObjectFactory<Test> {
 
     private static final long serialVersionUID = 1L;
     @TableId(type = IdType.AUTO)
@@ -35,6 +38,8 @@ public class Test implements Serializable {
 
     private Double money;
 
-
-
+    @Override
+    public Test getObject() throws BeansException {
+        return this;
+    }
 }

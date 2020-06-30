@@ -37,7 +37,7 @@ spring:
          driverClassName: org.postgresql.Driver
             # 使用druid数据源
        mssql:
-          url: jdbc:sqlserver://118.89.222.159:1433;DatabaseName=test
+          url: jdbc:sqlserver://CNDCXD30531FB88\SERVICEDESK:1433;DatabaseName=test
           username: sa
           password: Guan543543
           driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver

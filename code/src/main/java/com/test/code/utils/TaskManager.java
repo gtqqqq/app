@@ -27,13 +27,13 @@ public class TaskManager {
     ITestMssqlService iTestMssqlService;
 
     //fixedRate:上一次开始执行时间点后再次执行；间隔2秒执行一次
-    @Scheduled(fixedRate = 1000*60)
+    @Scheduled(fixedRate = 1000*22)
     public void fixRateTime() {
-    Test test = iTestService.getById(1);
+    Test test = iTestMssqlService.getById(1);
     test.setName(test.getName());
     test.setId(null);
-    iTestMssqlService.save(test);
-        System.out.println(">>>>>> fixRateTime >>>>>间隔66秒执行一次..：" + dateFormat.format(new Date()));
+    iTestService.save(test);
+        System.out.println(">>>>>> fixRateTime >>>>>间隔22秒执行一次..：" + dateFormat.format(new Date()));
     }
 
 //    // 第一次延时1秒执行，以后每2秒执行一次

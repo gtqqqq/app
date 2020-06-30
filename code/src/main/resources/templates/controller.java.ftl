@@ -4,12 +4,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import ${package.Service}.${table.serviceName};
 import ${package.Entity}.${entity};
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+<#if swagger2>import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;</#if>
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import base.ResponseObj;
 import java.util.List;
 <#if restControllerStyle>
 import org.springframework.web.bind.annotation.RestController;
@@ -60,7 +59,7 @@ public class ${table.controllerName} {
      */
     <#if swagger2>@ApiOperation(value = "查询分页数据") </#if>
     @GetMapping(value = "/list")
-    public ResponseWeb<Page> findListByPage(@RequestParam(name = "pageNum", defaultValue = "1") int pageNum,@RequestParam(name = "pageSize", defaultValue = "20") int pageSize){
+    public Object findListByPage(@RequestParam(name = "pageNum", defaultValue = "1") int pageNum,@RequestParam(name = "pageSize", defaultValue = "20") int pageSize){
         return null;
     }
 
