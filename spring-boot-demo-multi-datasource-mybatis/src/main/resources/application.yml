@@ -6,7 +6,7 @@ spring:
           username: root
           password: root
           # url: jdbc:mysql://127.0.0.1:3306/spring-boot-demo?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=GMT%2B8
-          url: jdbc:mysql://118.89.222.159:3306/test?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=GMT%2B8
+          url: jdbc:mysql://118.89.222.159:3306/servicenow_innovate?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=GMT%2B8
           driver-class-name: com.mysql.cj.jdbc.Driver
         slave:
           url: jdbc:sqlserver://118.89.222.159:1433;DatabaseName=test
@@ -20,4 +20,7 @@ spring:
      level:
        #com.xkcoding.multi.datasource.mybatis: info,debug
        com.xkcoding.multi.datasource.mybatis: info
-   
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

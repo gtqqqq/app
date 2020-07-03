@@ -87,18 +87,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 	}
     
     
-    @Scheduled(cron="${corn.time}")
-    public void testScheduled() {
-//     User userMaster = new User("主库添加",20); 
-//     userService.addUser(userMaster);
-    	//List<User> list = selectList(9);
-    	//deleteUser(4);
-    	//userService.deleteSlaveUser();
-    	//List<HashMap> hashMap=selectUserList1(20);
-    	List<User> list = selectUserList(20);
-    	
-    	//userService.saveSlaveUser(list);
-    	System.out.println(new Date()+"-定时任务开始"+list.size());
-    	//System.out.println(new Date()+"-定时任务开始"+hashMap.size());
-    }
+//    @Scheduled(cron="${corn.time}")
+//    public void testScheduled() {
+////     User userMaster = new User("主库添加",20);
+////     userService.addUser(userMaster);
+//    	//List<User> list = selectList(9);
+//    	//deleteUser(4);
+//    	//userService.deleteSlaveUser();
+//    	//List<HashMap> hashMap=selectUserList1(20);
+//    	List<User> list = selectUserList(20);
+//
+//    	//userService.saveSlaveUser(list);
+//    	System.out.println(new Date()+"-定时任务开始"+list.size());
+//    	//System.out.println(new Date()+"-定时任务开始"+hashMap.size());
+//    }
 }

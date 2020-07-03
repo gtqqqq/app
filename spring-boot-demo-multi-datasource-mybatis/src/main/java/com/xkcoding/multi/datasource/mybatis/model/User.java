@@ -33,7 +33,7 @@ public class User implements Serializable {
     /**
      * 主键
      */
-    @TableId(type = IdType.AUTO)
+   // @TableId(type = IdType.AUTO)
     private int id;
 
     /**

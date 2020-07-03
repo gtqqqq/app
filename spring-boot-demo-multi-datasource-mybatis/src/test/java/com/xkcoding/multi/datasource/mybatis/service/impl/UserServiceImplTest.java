@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * <p>
@@ -61,6 +62,11 @@ public class UserServiceImplTest extends SpringBootDemoMultiDatasourceMybatisApp
     @Scheduled(cron="${corn.time}")
     public void testScheduled() {
        // log.info("【list】= {}aaaaaaaaaaaaaaaa");
+        List<User> list = userService.list(new QueryWrapper<>());
+        for (User user: list){
+            user.setName(user.getName()+ new Random().nextInt());
+            userService.save(user);
+        }
     	System.out.println("定时任务开始");
     }
 }

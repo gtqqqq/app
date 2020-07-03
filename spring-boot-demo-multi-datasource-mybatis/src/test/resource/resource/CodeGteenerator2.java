@@ -63,9 +63,10 @@ public class CodeGteenerator2 {
         mpg.setDataSource(dsc);
 
         // 包配置
+        String parentPack = "com";
         PackageConfig pc = new PackageConfig();
         pc.setModuleName(scanner("模块"));
-        pc.setParent("com");
+        pc.setParent(parentPack);
         mpg.setPackageInfo(pc);
 
         // 自定义配置
@@ -88,8 +89,7 @@ public class CodeGteenerator2 {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
-                        + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+                return projectPath + "/src/main/resources/mapper/"  + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
 
@@ -97,7 +97,7 @@ public class CodeGteenerator2 {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 + pc.getModuleName()
-                String expand = projectPath + "/src/main/java/" +pc.getModuleName() + "/" + "controller";
+                String expand = projectPath + "/src/main/java/" +parentPack+"/"+pc.getModuleName()+ "/" + "controller";
                 String entityFile = String.format((expand + File.separator + "%s" + ".java"), tableInfo.getControllerName());
                 return entityFile;
             }
