@@ -27,13 +27,13 @@ public class CdcRequest implements Serializable {
     private String Number;
 
     @TableField("Requested for")
-    private String Requested for;
+    private String Requested_for;
 
     @TableField("PRID")
     private String prid;
 
     @TableField("Short description")
-    private String Short description;
+    private String Short_description;
 
     @TableField("Priority")
     private String Priority;
@@ -42,22 +42,22 @@ public class CdcRequest implements Serializable {
     private String State;
 
     @TableField("Assignment group")
-    private String Assignment group;
+    private String Assignment_group;
 
     @TableField("Name")
     private String Name;
 
     @TableField("Closed by")
-    private String Closed by;
+    private String Closed_by;
 
     @TableField("Opened")
     private LocalDateTime Opened;
 
     @TableField("Actual Start")
-    private LocalDateTime Actual Start;
+    private LocalDateTime Actual_Start;
 
     @TableField("Actual End")
-    private LocalDateTime Actual End;
+    private LocalDateTime Actual_End;
 
     @TableField("Duration")
     private Float Duration;
@@ -66,25 +66,25 @@ public class CdcRequest implements Serializable {
     private LocalDateTime Closed;
 
     @TableField("Resolve Time")
-    private String Resolve Time;
+    private String Resolve_Time;
 
     @TableField("Closure comments")
-    private String Closure comments;
+    private String Closure_comments;
 
     @TableField("Configuration item")
-    private String Configuration item;
+    private String Configuration_item;
 
     @TableField("Made SLA")
-    private Boolean Made SLA;
+    private Boolean Made_SLA;
 
     @TableField("Description")
     private String Description;
 
     @TableField("Opened by")
-    private String Opened by;
+    private String Opened_by;
 
     @TableField("Contact type")
-    private String Contact type;
+    private String Contact_type;
 
     @TableField("Application")
     private String Application;

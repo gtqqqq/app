@@ -46,7 +46,7 @@ public class CodeGteenerator2 {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
 
-        String projectPath = "D:\\workspace\\spring-boot-demo-multi-datasource-mybatis"; //System.getProperty("user.dir");
+        String projectPath = "E:\\IdeaProjects\\app\\spring-boot-demo-multi-datasource-mybatis"; //System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("gtq");
         gc.setOpen(false);
@@ -107,8 +107,8 @@ public class CodeGteenerator2 {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 + pc.getModuleName()
-                String expand = projectPath + "/src/main/java/" +parentPack+"/"+pc.getModuleName()+ "/" + "controller";
-                String entityFile = String.format((expand + File.separator + "%s" + ".java"), tableInfo.getControllerName());
+                String expand = projectPath + "/src/main/java/" +parentPack+"/"+pc.getModuleName()+ "/" + "service/impl/";
+                String entityFile = String.format((expand + File.separator + "%s" + ".java"), tableInfo.getServiceImplName());
                 return entityFile;
             }
         });
