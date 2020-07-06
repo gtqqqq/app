@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yida.mapper.CdcRequestMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.yida.entity.CdcRequest">
+        <id column="Number" property="Number" jdbcType="nvarchar"/>
+        <result column="Requested for" property="Requested for" jdbcType="nvarchar"/>
+        <result column="PRID" property="prid" jdbcType="nvarchar"/>
+        <result column="Short description" property="Short description" jdbcType="nvarchar"/>
+        <result column="Priority" property="Priority" jdbcType="nvarchar"/>
+        <result column="State" property="State" jdbcType="nvarchar"/>
+        <result column="Assignment group" property="Assignment group" jdbcType="nvarchar"/>
+        <result column="Name" property="Name" jdbcType="nvarchar"/>
+        <result column="Closed by" property="Closed by" jdbcType="nvarchar"/>
+        <result column="Opened" property="Opened" jdbcType="datetime"/>
+        <result column="Actual Start" property="Actual Start" jdbcType="datetime"/>
+        <result column="Actual End" property="Actual End" jdbcType="datetime"/>
+        <result column="Duration" property="Duration" jdbcType="float"/>
+        <result column="Closed" property="Closed" jdbcType="datetime"/>
+        <result column="Resolve Time" property="Resolve Time" jdbcType="nvarchar"/>
+        <result column="Closure comments" property="Closure comments" jdbcType="nvarchar"/>
+        <result column="Configuration item" property="Configuration item" jdbcType="nvarchar"/>
+        <result column="Made SLA" property="Made SLA" jdbcType="bit"/>
+        <result column="Description" property="Description" jdbcType="nvarchar"/>
+        <result column="Opened by" property="Opened by" jdbcType="nvarchar"/>
+        <result column="Contact type" property="Contact type" jdbcType="nvarchar"/>
+        <result column="Application" property="Application" jdbcType="nvarchar"/>
+        <result column="Category" property="Category" jdbcType="nvarchar"/>
+        <result column="CnDescription" property="CnDescription" jdbcType="nvarchar"/>
+        <result column="Hour" property="Hour" jdbcType="nvarchar"/>
+        <result column="SubApplication" property="SubApplication" jdbcType="nvarchar"/>
+    </resultMap>
+
+        <select id="selectByCdcRequestList" parameterType="com.yida.entity.CdcRequest"
+                resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM CdcRequest
+        <where>
+    <if test="Number != null">AND Number  = #{Number}</if>
+    <if test="Requested for != null">AND Requested for  = #{Requested for}</if>
+    <if test="prid != null">AND PRID  = #{prid}</if>
+    <if test="Short description != null">AND Short description  = #{Short description}</if>
+    <if test="Priority != null">AND Priority  = #{Priority}</if>
+    <if test="State != null">AND State  = #{State}</if>
+    <if test="Assignment group != null">AND Assignment group  = #{Assignment group}</if>
+    <if test="Name != null">AND Name  = #{Name}</if>
+    <if test="Closed by != null">AND Closed by  = #{Closed by}</if>
+    <if test="Opened != null">AND Opened  = #{Opened}</if>
+    <if test="Actual Start != null">AND Actual Start  = #{Actual Start}</if>
+    <if test="Actual End != null">AND Actual End  = #{Actual End}</if>
+    <if test="Duration != null">AND Duration  = #{Duration}</if>
+    <if test="Closed != null">AND Closed  = #{Closed}</if>
+    <if test="Resolve Time != null">AND Resolve Time  = #{Resolve Time}</if>
+    <if test="Closure comments != null">AND Closure comments  = #{Closure comments}</if>
+    <if test="Configuration item != null">AND Configuration item  = #{Configuration item}</if>
+    <if test="Made SLA != null">AND Made SLA  = #{Made SLA}</if>
+    <if test="Description != null">AND Description  = #{Description}</if>
+    <if test="Opened by != null">AND Opened by  = #{Opened by}</if>
+    <if test="Contact type != null">AND Contact type  = #{Contact type}</if>
+    <if test="Application != null">AND Application  = #{Application}</if>
+    <if test="Category != null">AND Category  = #{Category}</if>
+    <if test="CnDescription != null">AND CnDescription  = #{CnDescription}</if>
+    <if test="Hour != null">AND Hour  = #{Hour}</if>
+    <if test="SubApplication != null">AND SubApplication  = #{SubApplication}</if>
+        </where>
+        LIMIT 2
+    </select>
+        <if test="Number != null">AND Number = #{Number}
+        </if>
+        <if test="Requested for != null">AND Requested for = #{Requested for}
+        </if>
+        <if test="prid != null">AND PRID = #{prid}
+        </if>
+        <if test="Short description != null">AND Short description = #{Short description}
+        </if>
+        <if test="Priority != null">AND Priority = #{Priority}
+        </if>
+        <if test="State != null">AND State = #{State}
+        </if>
+        <if test="Assignment group != null">AND Assignment group = #{Assignment group}
+        </if>
+        <if test="Name != null">AND Name = #{Name}
+        </if>
+        <if test="Closed by != null">AND Closed by = #{Closed by}
+        </if>
+        <if test="Opened != null">AND Opened = #{Opened}
+        </if>
+        <if test="Actual Start != null">AND Actual Start = #{Actual Start}
+        </if>
+        <if test="Actual End != null">AND Actual End = #{Actual End}
+        </if>
+        <if test="Duration != null">AND Duration = #{Duration}
+        </if>
+        <if test="Closed != null">AND Closed = #{Closed}
+        </if>
+        <if test="Resolve Time != null">AND Resolve Time = #{Resolve Time}
+        </if>
+        <if test="Closure comments != null">AND Closure comments = #{Closure comments}
+        </if>
+        <if test="Configuration item != null">AND Configuration item = #{Configuration item}
+        </if>
+        <if test="Made SLA != null">AND Made SLA = #{Made SLA}
+        </if>
+        <if test="Description != null">AND Description = #{Description}
+        </if>
+        <if test="Opened by != null">AND Opened by = #{Opened by}
+        </if>
+        <if test="Contact type != null">AND Contact type = #{Contact type}
+        </if>
+        <if test="Application != null">AND Application = #{Application}
+        </if>
+        <if test="Category != null">AND Category = #{Category}
+        </if>
+        <if test="CnDescription != null">AND CnDescription = #{CnDescription}
+        </if>
+        <if test="Hour != null">AND Hour = #{Hour}
+        </if>
+        <if test="SubApplication != null">AND SubApplication = #{SubApplication}
+        </if>
+   <if test="paramMap.idList != null and paramMap.idList.size() > 0">
+        and a.id in
+        <foreach item="id" index="index" collection="paramMap.idList" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+   </if>
+    <![CDATA[
+        AND a.create_date < DATE_ADD(#{paramMap.endDate}, interval 1 day)
+    ]]>
+
+</mapper>

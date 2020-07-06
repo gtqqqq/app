@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -32,5 +34,7 @@ public interface IncidentMapper extends BaseMapper<Incident> {
             "DateDiff(dd,inc.[Resolved],getdate())=0   AND " +
             "inc.[Incident state] = #{state} ")
     public Integer selectL3IncResolvedList(@Param("state")String state);
+
+
 
 }

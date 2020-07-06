@@ -29,7 +29,7 @@ import ${superControllerClassPackage};
  * @version v1.0
  */
 <#if restControllerStyle>
-@Api(tags = {"${table.comment!}"})
+<#if swagger2>@Api(tags = {"${table.comment!}"})</#if>
 @RestController
 <#else>
 @Controller
@@ -69,7 +69,7 @@ public class ${table.controllerName} {
      */
     <#if swagger2>@ApiOperation(value = "根据id查询数据") </#if>
     @GetMapping(value = "/getById")
-    public ResponseWeb<${entity}> getById(@RequestParam("pkid") String pkid){
+    public Object getById(@RequestParam("pkid") String pkid){
        return null;
     }
 
@@ -78,7 +78,7 @@ public class ${table.controllerName} {
      */
     <#if swagger2>@ApiOperation(value = "新增数据") </#if>
     @PostMapping( "/add")
-    public ResponseWeb<${entity}> add(@RequestBody ${entity} ${entity?uncap_first}){
+    public Object add(@RequestBody ${entity} ${entity?uncap_first}){
         return null;
     }
 
@@ -87,7 +87,7 @@ public class ${table.controllerName} {
      */
     <#if swagger2>@ApiOperation(value = "删除数据") </#if>
     @PutMapping( "/del")
-    public ResponseWeb<String> delete(@RequestParam("ids") List<String> ids){
+    public Object delete(@RequestParam("ids") List<String> ids){
         return null;
     }
 
@@ -96,7 +96,7 @@ public class ${table.controllerName} {
      */
     <#if swagger2>@ApiOperation(value = "更新数据") </#if>
     @DeleteMapping("/update")
-    public ResponseWeb<${entity}> update(@RequestBody ${entity} ${entity?uncap_first}){
+    public Object update(@RequestBody ${entity} ${entity?uncap_first}){
         return null;
      }
 

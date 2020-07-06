@@ -77,9 +77,6 @@ public class CodeGteenerator2 {
             }
         };
 
-        // 自定义controller的代码模板
-        String templateControllerPath = "/template/controller.java.ftl";
-
 
         // 如果模板引擎是 freemarker
         String templatePath = "/template/mappertest.xml.ftl";
@@ -92,8 +89,21 @@ public class CodeGteenerator2 {
                 return projectPath + "/src/main/resources/mapper/"  + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
-
+        // 自定义controller的代码模板
+        String templateControllerPath = "/template/controller.java.ftl";
         focList.add(new FileOutConfig(templateControllerPath) {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义输出文件名 + pc.getModuleName()
+                String expand = projectPath + "/src/main/java/" +parentPack+"/"+pc.getModuleName()+ "/" + "controller";
+                String entityFile = String.format((expand + File.separator + "%s" + ".java"), tableInfo.getControllerName());
+                return entityFile;
+            }
+        });
+
+        // 自定义controller的代码模板
+        String templateServiceImplPath = "/template/templateServiceImpl.java.ftl";
+        focList.add(new FileOutConfig(templateServiceImplPath) {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 + pc.getModuleName()
