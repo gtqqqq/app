@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  *  Mapper 接口
  * </p>
  *
- * @author gtq
+ * @author guantianqi
  * @since 2020-07-06
  */
 public interface L2RequestMapper extends BaseMapper<L2Request> {

@@ -24,3 +24,4 @@ ${tableName}VO select${tableName}ByPrimaryKey(String ${tableVar}Id);
 <${tableName}VO> select${tableName}ByList(${tableName}PO ${tableVar}PO);
 
     }
+

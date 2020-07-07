@@ -46,7 +46,7 @@ public class CodeGteenerator2 {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
 
-        String projectPath = "E:\\IdeaProjects\\app\\spring-boot-demo-multi-datasource-mybatis"; //System.getProperty("user.dir");
+        String projectPath = "D:\\workspace\\spring-boot-demo-multi-datasource-mybatis"; //System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("gtq");
         gc.setOpen(false);

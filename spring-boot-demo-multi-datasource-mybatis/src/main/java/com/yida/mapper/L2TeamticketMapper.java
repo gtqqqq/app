@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Select;
  *  Mapper 接口
  * </p>
  *
- * @author gtq
+ * @author guantianqi
  * @since 2020-07-06
  */
 public interface L2TeamticketMapper extends BaseMapper<L2Teamticket> {

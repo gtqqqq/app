@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Select;
  *  Mapper 接口
  * </p>
  *
- * @author gtq
+ * @author guantianqi
  * @since 2020-07-02
  */
 public interface RequestMapper extends BaseMapper<Request> {

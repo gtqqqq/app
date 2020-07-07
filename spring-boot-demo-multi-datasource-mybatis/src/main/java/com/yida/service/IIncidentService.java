@@ -11,7 +11,7 @@ import java.util.List;
  *  服务类
  * </p>
  *
- * @author gtq
+ * @author guantianqi
  * @since 2020-07-02
  */
 public interface IIncidentService extends IService<Incident> {

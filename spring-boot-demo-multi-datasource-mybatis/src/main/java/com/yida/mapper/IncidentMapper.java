@@ -12,7 +12,7 @@ import java.util.List;
  *  Mapper 接口
  * </p>
  *
- * @author gtq
+ * @author guantianqi
  * @since 2020-07-02
  */
 public interface IncidentMapper extends BaseMapper<Incident> {

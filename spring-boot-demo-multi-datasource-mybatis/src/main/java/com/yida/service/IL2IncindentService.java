@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  *  服务类
  * </p>
  *
- * @author gtq
+ * @author guantianqi
  * @since 2020-07-06
  */
 public interface IL2IncindentService extends IService<L2Incindent> {

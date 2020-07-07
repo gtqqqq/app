@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  *  l2teamticket服务类
  * </p>
  *
- * @author gtq
+ * @author guantianqi
  * @since 2020-07-06
  */
 public interface IL2TeamticketService extends IService<L2Teamticket> {
