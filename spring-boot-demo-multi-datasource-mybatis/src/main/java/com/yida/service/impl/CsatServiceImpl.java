@@ -43,14 +43,13 @@ public class CsatServiceImpl extends ServiceImpl<CsatMapper, Csat> implements IC
         Field[] Fields = csatPhone.getClass().getDeclaredFields();
         for (Field field : Fields) {
             field.setAccessible(true);
-            for (int i = 0; i < 24; i++) {
-                if (field.getName().equals("h" + i)) {
-                    Integer rate = iSurveyService.selectCsatPhone(i);
-                    try {
-                        field.set(csatPhone, rate);
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
+            if (field.getName().startsWith("h")) {
+                Integer hour = Integer.valueOf(field.getName().substring(1));
+                Integer rate = iSurveyService.selectCsatPhone(hour);
+                try {
+                    field.set(csatPhone, rate);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
                 }
             }
         }
@@ -61,17 +60,17 @@ public class CsatServiceImpl extends ServiceImpl<CsatMapper, Csat> implements IC
         Field[] iFields = csatInc.getClass().getDeclaredFields();
         for (Field field : iFields) {
             field.setAccessible(true);
-            for (int i = 0; i < 24; i++) {
-                if (field.getName().equals("h" + i)) {
-                    Integer rate = iSurveyService.selectCsatIncident(i);
-                    try {
-                        field.set(csatInc, rate);
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
+            if (field.getName().startsWith("h")) {
+                Integer hour = Integer.valueOf(field.getName().substring(1));
+                Integer rate = iSurveyService.selectCsatIncident(hour);
+                try {
+                    field.set(csatInc, rate);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
                 }
             }
         }
+
 
         Csat csatReq = new Csat();
         csatReq.setCreateDay(createDay);
@@ -79,17 +78,19 @@ public class CsatServiceImpl extends ServiceImpl<CsatMapper, Csat> implements IC
         Field[] rFields = csatReq.getClass().getDeclaredFields();
         for (Field field : rFields) {
             field.setAccessible(true);
-            for (int i = 0; i < 24; i++) {
-                if (field.getName().equals("h" + i)) {
-                    Integer rate = iSurveyService.selectCsatRequest(i);
-                    try {
-                        field.set(csatReq, rate);
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
+            if (field.getName().startsWith("h")) {
+                Integer hour = Integer.valueOf(field.getName().substring(1));
+                try {
+                    Integer rate = iSurveyService.selectCsatRequest(hour);
+                    field.set(csatReq, rate);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    log.info("mysql:插入当天" +hour+ "时的Csat统计数异常");
                 }
             }
         }
+
 
         QueryWrapper<Csat> queryWrapper = new QueryWrapper<Csat>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyy-MM-dd");
