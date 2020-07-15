@@ -27,7 +27,7 @@ public interface SurveyMapper extends BaseMapper<Survey> {
             " sn.[I would recommend this service TO a colleague ] IN ( 'yes', 'no' )  AND " +
             " sn.RITM is not null and " +
             "  DateDiff(dd,sn.[Assessment completed on date],getdate())=0 AND " +
-            "  DATEPART(hh,sn.[Assessment completed on date])=DATEPART(hh, #{hour}) " +
+            "  DATEPART(hh,sn.[Assessment completed on date])=#{hour} " +
             " )=0 THEN 0 ELSE " +
             "( SELECT count( 1 )  FROM dbo.sn_survey AS sn  " +
             "WHERE " +
@@ -37,7 +37,7 @@ public interface SurveyMapper extends BaseMapper<Survey> {
             " sn.[I would recommend this service TO a colleague ] ='yes' and " +
             " sn.RITM is not null and " +
             " DateDiff(dd,sn.[Assessment completed on date],getdate())=0 and " +
-            "  DATEPART(hh,sn.[Assessment completed on date])=DATEPART(hh, #{hour}) " +
+            "  DATEPART(hh,sn.[Assessment completed on date])=#{hour} " +
             " )/  " +
             "(SELECT count( 1 ) as c1 FROM dbo.sn_survey AS sn  " +
             "WHERE " +
@@ -52,9 +52,9 @@ public interface SurveyMapper extends BaseMapper<Survey> {
     public Integer selectCsatRequest(int hour);
 
     @Select("SELECT(CASE WHEN " +
-            "  ( SELECT count( 1 ) FROM dbo.Survey AS su WHERE su.agent_score != 0 AND DateDiff(dd,su.callin_time,getdate())=0 and DATEPART(hh,su.callin_time)=DATEPART(hh, #{hour}) ) = 0 THEN 0 ELSE  " +
-            " ( SELECT count( 1 ) FROM dbo.Survey AS su WHERE su.agent_score IN ( 1, 2 ) AND DateDiff(dd,su.callin_time,getdate())=0 and DATEPART(hh,su.callin_time)=DATEPART(hh, #{hour}) ) / " +
-            " ( SELECT count( 1 ) FROM dbo.Survey AS su WHERE su.agent_score != 0 AND DateDiff(dd,su.callin_time,getdate())=0 and DATEPART(hh,su.callin_time)=DATEPART(hh, #{hour}) ) END )")
+            "  ( SELECT count( 1 ) FROM dbo.Survey AS su WHERE su.agent_score != 0 AND DateDiff(dd,su.callin_time,getdate())=0 and DATEPART(hh,su.callin_time)=#{hour} ) = 0 THEN 0 ELSE  " +
+            " ( SELECT count( 1 ) FROM dbo.Survey AS su WHERE su.agent_score IN ( 1, 2 ) AND DateDiff(dd,su.callin_time,getdate())=0 and DATEPART(hh,su.callin_time)=#{hour} ) / " +
+            " ( SELECT count( 1 ) FROM dbo.Survey AS su WHERE su.agent_score != 0 AND DateDiff(dd,su.callin_time,getdate())=0 and DATEPART(hh,su.callin_time)=#{hour} ) END )")
     public Integer selectCsatPhone(int hour);
     
     @Select("select(CASE WHEN ( " +
@@ -65,7 +65,7 @@ public interface SurveyMapper extends BaseMapper<Survey> {
             " sn.[I would recommend this service TO a colleague ] IN ( 'yes', 'no' ) AND " +
             " sn.Incident is not NULL and " +
             " DateDiff(dd,sn.[Assessment completed on date],getdate())=0 " +
-            "  and DATEPART(hh,sn.[Assessment completed on date])=DATEPART(hh, #{hour}) " +
+            "  and DATEPART(hh,sn.[Assessment completed on date])=#{hour} " +
             " )=0 THEN 0 ELSE " +
             "(SELECT count( 1 )  FROM dbo.sn_survey AS sn  " +
             "  WHERE " +
@@ -76,7 +76,7 @@ public interface SurveyMapper extends BaseMapper<Survey> {
             "  sn.Incident is not NULL and " +
             "   DateDiff(dd,sn.[Assessment completed on date],getdate())=0 and " +
             "    DATEPART(hh,sn.[Assessment completed on date])= #{hour}" +
-            " ) * ( " +
+            " ) / ( " +
             "SELECT count( 1 ) as c1 FROM dbo.sn_survey AS sn  " +
             "WHERE " +
             " sn.[I did not need to chase to get it fixed]IN ('yes','no') and " +
@@ -85,7 +85,9 @@ public interface SurveyMapper extends BaseMapper<Survey> {
             " sn.[I would recommend this service TO a colleague ] IN ( 'yes', 'no' )  AND " +
             " sn.Incident is not NULL and " +
             "  DateDiff(dd,sn.[Assessment completed on date],getdate())=0 " +
-            "  and DATEPART(hh,sn.[Assessment completed on date])=DATEPART(hh, #{hour}) " +
+            "  and DATEPART(hh,sn.[Assessment completed on date])= #{hour} " +
             " )END )")
     public Integer selectCsatIncident(int hour);
+
+
 }

@@ -30,12 +30,11 @@ import java.util.List;
 @Service
 public class CsatServiceImpl extends ServiceImpl<CsatMapper, Csat> implements ICsatService {
 
+
     @Autowired
     ISurveyService iSurveyService;
 
-    //sqlserver Csat统计数定时写入mysql
-    @Scheduled(cron = " 0 */1 * * * ?")
-    public void testScheduled() {
+    public void taskCsat() {
         Date createDay = new Date();
         Csat csatPhone = new Csat();
         csatPhone.setCreateDay(createDay);
@@ -74,7 +73,7 @@ public class CsatServiceImpl extends ServiceImpl<CsatMapper, Csat> implements IC
 
         Csat csatReq = new Csat();
         csatReq.setCreateDay(createDay);
-        csatReq.setCsatType("Incident");
+        csatReq.setCsatType("Request");
         Field[] rFields = csatReq.getClass().getDeclaredFields();
         for (Field field : rFields) {
             field.setAccessible(true);
@@ -91,11 +90,9 @@ public class CsatServiceImpl extends ServiceImpl<CsatMapper, Csat> implements IC
             }
         }
 
-
         QueryWrapper<Csat> queryWrapper = new QueryWrapper<Csat>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyy-MM-dd");
-        queryWrapper.eq("create_Day", new Date());
-
+        queryWrapper.apply(" DATE_FORMAT(create_Day,'%Y-%m-%d')= DATE_FORMAT({0},'%Y-%m-%d')", new Date());
         savemysql(csatPhone, queryWrapper, dateFormat);
         savemysql(csatInc, queryWrapper, dateFormat);
         savemysql(csatReq, queryWrapper, dateFormat);

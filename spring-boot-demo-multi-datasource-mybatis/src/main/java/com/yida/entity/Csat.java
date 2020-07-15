@@ -1,6 +1,7 @@
 package com.yida.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,6 +21,7 @@ import java.util.Date;
 public class Csat implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private Long id;
 
     @TableField("create_Day")

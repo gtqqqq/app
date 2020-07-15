@@ -1,4 +1,4 @@
-package com.yida.service.impl;
+package com.yida.service.impl.mysql;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.yida.entity.IncL1l2l3Num;

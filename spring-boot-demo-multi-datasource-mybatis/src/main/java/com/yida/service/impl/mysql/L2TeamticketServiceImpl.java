@@ -1,4 +1,4 @@
-package com.yida.service.impl;
+package com.yida.service.impl.mysql;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -32,9 +32,8 @@ public class L2TeamticketServiceImpl extends ServiceImpl<L2TeamticketMapper, L2T
     @Autowired
     IL2IncindentService il2IncindentService;
 
-    //sqlserver L2TeamTickets统计数定时写入mysql
-    @Scheduled(cron = "${corn.time}")
-    public void testScheduled() {
+
+    public void taskL2Teamticket() {
 
         Integer totalTickets= il2IncindentService.selectL2Totalticket();
         Integer workingTickets = il2IncindentService.selectL2WorkingTickets();

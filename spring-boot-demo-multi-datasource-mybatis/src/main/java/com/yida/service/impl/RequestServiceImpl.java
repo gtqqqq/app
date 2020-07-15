@@ -2,6 +2,8 @@ package com.yida.service.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.org.apache.bcel.internal.generic.IFNULL;
 import com.yida.entity.IncL1l2l3Num;
 import com.yida.entity.ReqL1l2l3Num;
 import com.yida.entity.Request;
@@ -36,8 +38,8 @@ public class RequestServiceImpl extends ServiceImpl<RequestMapper, Request> impl
     @Autowired
     IReqL1l2l3NumService iReqL1l2l3NumService;
 
-    @Scheduled(cron = "${corn.time}")
-    public void testScheduled() {
+
+    public void taskRequest() {
 
         Integer l1count = selectL1Request();
 
@@ -54,7 +56,7 @@ public class RequestServiceImpl extends ServiceImpl<RequestMapper, Request> impl
         reqL1l2l3Num.setL3ResolvedNum(l3count);
         QueryWrapper<ReqL1l2l3Num> queryWrapper = new QueryWrapper<ReqL1l2l3Num>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyy-MM-dd");
-        queryWrapper.eq("create_time", dateFormat.format(new Date()));
+        queryWrapper.apply(" DATE_FORMAT(create_time,'%Y-%m-%d')= DATE_FORMAT({0},'%Y-%m-%d')", new Date());
         try {
             List<ReqL1l2l3Num> list = iReqL1l2l3NumService.list(queryWrapper);
             if (list.size() > 0) {
@@ -66,7 +68,10 @@ public class RequestServiceImpl extends ServiceImpl<RequestMapper, Request> impl
                 log.info("mysql:req首次添加当天"+dateFormat.format(new Date())+"的incL1L2L3计数");
                 iReqL1l2l3NumService.save(reqL1l2l3Num);
             }
+
+
         } catch (Exception e) {
+
             log.error(e.getLocalizedMessage(), e);
         }
     }

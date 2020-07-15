@@ -34,8 +34,8 @@ public class IncidentServiceImpl extends ServiceImpl<IncidentMapper, Incident> i
     IIncL1l2l3NumService iIncL1l2l3NumService;
 
     //sqlserverinc定时写入mysql
-    @Scheduled(cron = "${corn.time}")
-    public void testScheduled() {
+
+    public void taskIncident() {
         Integer l1Count = selectL1IncidentList();
         //@TODO log.info("sqlserver:当天统计数inc>>>>>>L1="+l1Count+"L2="+l2Count+"L3="+l3Count);
         String state = "Resolved";
